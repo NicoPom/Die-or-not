@@ -1,24 +1,53 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+const form = document.querySelector("form");
+const textInput = document.querySelector(".textInput");
+const resultContent = document.querySelector(".resultContent");
+const loader = document.querySelector(".loader");
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+// on form submit
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const dish = textInput.value.trim(); // remove whitespace
+  if (!dish) {
+    resultContent.innerText = "Please enter a dish name";
+    return;
+  }
+  try {
+    const result = await callBackend(dish);
+    displayResult(dish, result);
+  } catch (error) {
+    console.error(error);
+  }
+});
 
-setupCounter(document.querySelector('#counter'))
+const callBackend = async (text) => {
+  loader.classList.remove("-hidden");
+  resultContent.classList.add("-hidden");
+  const response = await fetch(`http://localhost:3000/openai?text=${text}`);
+  try {
+    const answer = await response.text();
+    if (answer) {
+      loader.classList.add("-hidden");
+      resultContent.classList.remove("-hidden");
+    }
+    return answer === "yes" || answer === "Yes";
+  } catch (error) {
+    return "error";
+  }
+};
+
+const displayResult = (dish, result) => {
+  if (result === "error") {
+    resultContent.innerText = "Oops something went wrong";
+    return;
+  }
+  resultContent.innerText =
+    dish + (result ? ` can be Spicy 🥵` : " is not Spicy 😊");
+
+  const bgRed = document.querySelector(".bg.red");
+
+  if (result) {
+    bgRed.classList.remove("-invisible");
+  } else {
+    bgRed.classList.add("-invisible");
+  }
+};
