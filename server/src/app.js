@@ -4,16 +4,17 @@ import dotenv from "dotenv";
 import OpenAI from "openai";
 dotenv.config(); // load environment variables from .env file for local development
 
-const api = require("./api");
+const api = require("../api");
 
 const app = express();
 // const port = process.env.PORT || 3000;
-const corsOptions = {
-  origin: "https://spicy-or-not.vercel.app/",
-};
+// const corsOptions = {
+//   origin: "https://spicy-or-not.vercel.app/",
+// };
 
 // Allow requests from all origins (adjust this as needed)
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors());
 
 // // Start the server
 // app.listen(port, () => {
@@ -29,16 +30,16 @@ app.get("/", (req, res) => {
 
 // Define a route that uses the OpenAI API
 app.get("/openai", async (req, res) => {
-  // set CORS headers
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://spicy-or-not.vercel.app"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, OPTIONS"
-  );
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  // // set CORS headers
+  // res.setHeader(
+  //   "Access-Control-Allow-Origin",
+  //   "https://spicy-or-not.vercel.app"
+  // );
+  // res.setHeader(
+  //   "Access-Control-Allow-Methods",
+  //   "GET, POST, PUT, DELETE, OPTIONS"
+  // );
+  // res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
   // handle request
   const { text } = req.query;
