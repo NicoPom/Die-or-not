@@ -6,7 +6,7 @@ dotenv.config(); // load environment variables from .env file for local developm
 const app = express();
 // const port = process.env.PORT || 3000;
 const corsOptions = {
-  origin: "https://spicy-or-not-xi.vercel.app",
+  origin: "https://spicy-or-not.vercel.app/",
 };
 
 // Allow requests from all origins (adjust this as needed)
