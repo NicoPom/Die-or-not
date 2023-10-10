@@ -4,15 +4,18 @@ import dotenv from "dotenv";
 import OpenAI from "openai";
 dotenv.config(); // load environment variables from .env file for local development
 const app = express();
-const port = process.env.PORT || 3000;
+// const port = process.env.PORT || 3000;
+const corsOptions = {
+  origin: "https://spicy-or-not-xi.vercel.app",
+};
 
 // Allow requests from all origins (adjust this as needed)
-app.use(cors());
+app.use(cors(corsOptions));
 
-// Start the server
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+// // Start the server
+// app.listen(port, () => {
+//   console.log(`Server is running on port ${port}`);
+// });
 
 // Define a basic route
 app.get("/", (req, res) => {
