@@ -2,6 +2,7 @@ const form = document.querySelector("form");
 const textInput = document.querySelector(".textInput");
 const resultContent = document.querySelector(".resultContent");
 const loader = document.querySelector(".loader");
+const baseURL = "https://spicy-or-not-backend.vercel.app/";
 
 // on form submit
 form.addEventListener("submit", async (event) => {
@@ -22,7 +23,7 @@ form.addEventListener("submit", async (event) => {
 const callBackend = async (text) => {
   loader.classList.remove("-hidden");
   resultContent.classList.add("-hidden");
-  const response = await fetch(`http://localhost:3000/openai?text=${text}`);
+  const response = await fetch(`${baseURL}?text=${text}`);
   try {
     const answer = await response.text();
     if (answer) {
