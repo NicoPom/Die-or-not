@@ -25,18 +25,15 @@ app.get("/", (req, res) => {
 // Define a route that uses the OpenAI API
 app.get("/openai", async (req, res) => {
   // set CORS headers
-  response.setHeader(
+  res.setHeader(
     "Access-Control-Allow-Origin",
     "https://spicy-or-not.vercel.app"
   );
-  response.setHeader(
+  res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, DELETE, OPTIONS"
   );
-  response.setHeader(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization"
-  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
   // handle request
   const { text } = req.query;
