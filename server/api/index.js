@@ -53,4 +53,4 @@ async function openaiApi(text) {
 }
 
 // export the express app
-export default app;
+module.exports = app;
