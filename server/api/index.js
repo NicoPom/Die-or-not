@@ -2,7 +2,7 @@ import cors from "cors";
 import express from "express";
 import dotenv from "dotenv";
 import OpenAI from "openai";
-dotenv.config();
+dotenv.config(); // load environment variables from .env file for local development
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -51,3 +51,6 @@ async function openaiApi(text) {
   console.log(answer);
   return answer;
 }
+
+// export the express app
+export default app;
