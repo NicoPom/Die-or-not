@@ -2,7 +2,8 @@ const form = document.querySelector("form");
 const textInput = document.querySelector(".textInput");
 const resultContent = document.querySelector(".resultContent");
 const loader = document.querySelector(".loader");
-const baseURL = "https://spicy-or-not-backend.vercel.app/";
+const baseURL =
+  "https://remarkable-alfajores-d1bfba.netlify.app/.netlify/functions/api";
 
 // on form submit
 form.addEventListener("submit", async (event) => {
