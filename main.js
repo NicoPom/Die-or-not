@@ -1,4 +1,4 @@
-import netlifyIdentity from "netlify-identity-widget";
+import netlifyIdentity from "./node_modules/netlify-identity-widget";
 
 const form = document.querySelector("form");
 const textInput = document.querySelector(".textInput");
