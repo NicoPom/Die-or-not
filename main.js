@@ -1,9 +1,47 @@
+import netlifyIdentity from "netlify-identity-widget";
+
 const form = document.querySelector("form");
 const textInput = document.querySelector(".textInput");
 const resultContent = document.querySelector(".resultContent");
 const loader = document.querySelector(".loader");
-const baseURL =
-  "https://remarkable-alfajores-d1bfba.netlify.app/.netlify/functions/api";
+const baseURL = "https://dieornot.com/.netlify/functions/api";
+// "http://localhost:8888/.netlify/functions/api";
+
+const loginBtn = document.querySelector("#loginBtn");
+const loginMessage = document.querySelector(".login-message");
+
+netlifyIdentity.init();
+
+console.log(netlifyIdentity.currentUser());
+
+// show login message if not logged in or if user is not here
+const user = netlifyIdentity.currentUser();
+
+const userLoggedIn = (state) => {
+  if (state) {
+    loginMessage.classList.add("-hidden");
+    form.classList.remove("-hidden");
+    //render the form
+  } else {
+    loginMessage.classList.remove("-hidden");
+    form.classList.add("-hidden");
+  }
+};
+
+userLoggedIn(user);
+
+netlifyIdentity.on("login", () => {
+  userLoggedIn(true);
+});
+
+netlifyIdentity.on("logout", () => {
+  userLoggedIn(false);
+});
+
+// on login button click
+loginBtn.addEventListener("click", () => {
+  netlifyIdentity.open();
+});
 
 // on form submit
 form.addEventListener("submit", async (event) => {

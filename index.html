@@ -12,14 +12,20 @@
 <body>
   <div class="bg green"></div>
   <div class="bg red -invisible"></div>
-  <div id="app">
+  <header>
+    <!--<button id="loginBtn">Login</button>
+    <a id="buyBtn" href="https://buy.stripe.com/eVag2u7Rd3lEeis4gg" target="_blank">Buy</a> -->
+    <div data-netlify-identity-menu></div>
+  </header>
+  <main id="app">
     <h1 class="title">DIE OR NOT </h1>
     <p>Check if your food is spicy or not ?</p>
+    <div class="login-message">
+      <p>Please Log In</p>
+      <button id="loginBtn">Login</button>
+    </div>
+
     <form>
-      <!--
-      <label for="img">Select image:</label>
-      <input type="file" id="img" name="img" accept="image/*">
-      -->
       <input type="text" class="textInput" name="text" placeholder="Enter a dish name">
       <button> Check </button>
     </form>
@@ -27,7 +33,7 @@
       <div class="loader -hidden"></div>
       <p class="resultContent -hidden"></p>
     </div>
-  </div>
+  </main>
   <script type="module" src="/main.js"></script>
 </body>
 

@@ -24,7 +24,6 @@ exports.handler = async function (event, context) {
       presence_penalty: 0,
     });
     const answer = response.choices[0].message.content;
-    console.log(answer);
     return answer;
   }
 

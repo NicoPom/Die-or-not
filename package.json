@@ -12,6 +12,7 @@
     "vite": "^4.4.5"
   },
   "dependencies": {
+    "netlify-identity-widget": "^1.9.2",
     "openai": "^4.11.1"
   }
 }
