@@ -7,7 +7,6 @@ const loader = document.querySelector(".loader");
 const baseURL = "https://dieornot.com/.netlify/functions/api";
 // "http://localhost:8888/.netlify/functions/api";
 
-const loginBtn = document.querySelector("#loginBtn");
 const loginMessage = document.querySelector(".login-message");
 
 netlifyIdentity.init();
@@ -17,30 +16,29 @@ console.log(netlifyIdentity.currentUser());
 // show login message if not logged in or if user is not here
 const user = netlifyIdentity.currentUser();
 
-const userLoggedIn = (state) => {
+const isUserLoggedIn = (state) => {
   if (state) {
     loginMessage.classList.add("-hidden");
     form.classList.remove("-hidden");
     //render the form
+    form.innerHTML = `
+      <input type="text" class="textInput" name="text" placeholder="Enter a dish name">
+      <button> Check </button>
+    `;
   } else {
     loginMessage.classList.remove("-hidden");
-    form.classList.add("-hidden");
+    form.innerHTML = "";
   }
 };
 
-userLoggedIn(user);
+isUserLoggedIn(user);
 
 netlifyIdentity.on("login", () => {
-  userLoggedIn(true);
+  isUserLoggedIn(true);
 });
 
 netlifyIdentity.on("logout", () => {
-  userLoggedIn(false);
-});
-
-// on login button click
-loginBtn.addEventListener("click", () => {
-  netlifyIdentity.open();
+  isUserLoggedIn(false);
 });
 
 // on form submit
