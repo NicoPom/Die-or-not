@@ -10,6 +10,11 @@ const loginMessage = document.querySelector(".login-message");
 const user = netlifyIdentity.currentUser();
 console.log(user);
 
+// on login hide popin
+netlifyIdentity.on("login", () => {
+  netlifyIdentity.close();
+});
+
 // show login message if not logged in or if user is not here
 const isUserLoggedIn = (state) => {
   if (state) {
