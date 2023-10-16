@@ -7,8 +7,6 @@ const baseURL = "https://dieornot.com/.netlify/functions/api";
 
 const loginMessage = document.querySelector(".login-message");
 
-netlifyIdentity.init();
-
 const user = netlifyIdentity.currentUser();
 console.log(user);
 
