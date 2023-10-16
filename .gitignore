@@ -16,7 +16,7 @@ dist-ssr
 *.env
 
 # txt files 
-*.txt
+previous porkbun nameservers.txt
 
 # Editor directories and files
 .vscode/*
