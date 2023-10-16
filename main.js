@@ -1,5 +1,3 @@
-import netlifyIdentity from "netlify-identity-widget";
-
 const form = document.querySelector("form");
 const textInput = document.querySelector(".textInput");
 const resultContent = document.querySelector(".resultContent");
@@ -11,11 +9,10 @@ const loginMessage = document.querySelector(".login-message");
 
 netlifyIdentity.init();
 
-console.log(netlifyIdentity.currentUser());
+const user = netlifyIdentity.currentUser();
+console.log(user);
 
 // show login message if not logged in or if user is not here
-const user = netlifyIdentity.currentUser();
-
 const isUserLoggedIn = (state) => {
   if (state) {
     loginMessage.classList.add("-hidden");
