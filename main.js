@@ -1,32 +1,11 @@
 const form = document.querySelector("form");
-const resultContent = document.querySelector(".resultContent");
+const resultContent = document.querySelector(".result-content");
+const warningMessage = document.querySelector(".warning-message");
 const loader = document.querySelector(".loader");
 const baseURL = "https://dieornot.com/.netlify/functions/api";
 // const baseURL = "http://localhost:8888/.netlify/functions/api";
 let textInput = null;
-
 const loginMessage = document.querySelector(".login-message");
-
-netlifyIdentity.on("init", (user) => {
-  console.log(user);
-  isUserLoggedIn(user);
-});
-
-// on login hide popin
-netlifyIdentity.on("login", (user) => {
-  netlifyIdentity.close();
-  isUserLoggedIn(user);
-  // createUser(user); // just for test
-});
-
-netlifyIdentity.on("logout", (user) => {
-  isUserLoggedIn(user);
-  netlifyIdentity.close();
-});
-
-netlifyIdentity.on("signup", (user) => {
-  createUser(user);
-});
 
 const createUser = async (user) => {
   if (!user) return;
@@ -38,7 +17,7 @@ const createUser = async (user) => {
     subscribed: false,
     unique_id: user.id,
   };
-  const response = await fetch("/.netlify/functions/createUser", {
+  const response = await fetch("/.netlify/functions/create-user", {
     method: "POST",
     body: JSON.stringify({ user: newUser }),
   });
@@ -52,6 +31,7 @@ const createUser = async (user) => {
 
 // show login message if not logged in or if user is not here
 const isUserLoggedIn = (state) => {
+  form.innerHTML = "";
   if (state) {
     loginMessage.classList.add("-hidden");
     //render the form
@@ -72,10 +52,23 @@ const isUserLoggedIn = (state) => {
 const onFormSubmit = async (event) => {
   event.preventDefault();
   const dish = textInput.value.trim(); // remove whitespace
+
   if (!dish) {
-    resultContent.innerText = "Please enter a dish name";
+    warningMessage.innerText = "Please enter a dish name";
+    warningMessage.classList.remove("-hidden");
     return;
   }
+
+  const user = netlifyIdentity.currentUser();
+  const { role } = user;
+
+  if (!role || !role.includes("pro")) {
+    warningMessage.innerText =
+      "You need to be a pro member to use this feature";
+    warningMessage.classList.remove("-hidden");
+    return;
+  }
+
   try {
     const result = await callBackend(dish);
     displayResult(dish, result);
@@ -102,7 +95,8 @@ const callBackend = async (text) => {
 
 const displayResult = (dish, result) => {
   if (result === "error") {
-    resultContent.innerText = "Oops something went wrong";
+    warningMessage.innerText = "Oops something went wrong";
+    warningMessage.classList.remove("-hidden");
     return;
   }
   resultContent.innerText =
@@ -116,3 +110,23 @@ const displayResult = (dish, result) => {
     bgRed.classList.add("-invisible");
   }
 };
+
+// EVENT LISTENERS
+netlifyIdentity.on("init", (user) => {
+  console.log(user);
+  isUserLoggedIn(user);
+});
+
+netlifyIdentity.on("login", (user) => {
+  netlifyIdentity.close();
+  isUserLoggedIn(user);
+});
+
+netlifyIdentity.on("logout", (user) => {
+  isUserLoggedIn(user);
+  netlifyIdentity.close();
+});
+
+netlifyIdentity.on("signup", (user) => {
+  createUser(user);
+});
