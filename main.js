@@ -1,48 +1,75 @@
 const form = document.querySelector("form");
-const textInput = document.querySelector(".textInput");
 const resultContent = document.querySelector(".resultContent");
 const loader = document.querySelector(".loader");
 const baseURL = "https://dieornot.com/.netlify/functions/api";
-// "http://localhost:8888/.netlify/functions/api";
+// const baseURL = "http://localhost:8888/.netlify/functions/api";
+let textInput = null;
 
 const loginMessage = document.querySelector(".login-message");
 
-const user = netlifyIdentity.currentUser();
-console.log(user);
+netlifyIdentity.on("init", (user) => {
+  console.log(user);
+  isUserLoggedIn(user);
+});
 
 // on login hide popin
-netlifyIdentity.on("login", () => {
+netlifyIdentity.on("login", (user) => {
+  netlifyIdentity.close();
+  isUserLoggedIn(user);
+  // createUser(user); // just for test
+});
+
+netlifyIdentity.on("logout", (user) => {
+  isUserLoggedIn(user);
   netlifyIdentity.close();
 });
+
+netlifyIdentity.on("signup", (user) => {
+  createUser(user);
+});
+
+const createUser = async (user) => {
+  if (!user) return;
+  const { email, user_metadata } = user;
+  const { full_name } = user_metadata;
+  const newUser = {
+    name: full_name,
+    email: email,
+    subscribed: false,
+    unique_id: user.id,
+  };
+  const response = await fetch("/.netlify/functions/createUser", {
+    method: "POST",
+    body: JSON.stringify({ user: newUser }),
+  });
+  try {
+    const result = await response.text();
+    console.log(result);
+  } catch (error) {
+    alert("Oops something went wrong");
+  }
+};
 
 // show login message if not logged in or if user is not here
 const isUserLoggedIn = (state) => {
   if (state) {
     loginMessage.classList.add("-hidden");
-    form.classList.remove("-hidden");
     //render the form
     form.innerHTML = `
       <input type="text" class="textInput" name="text" placeholder="Enter a dish name">
       <button> Check </button>
     `;
+    // get the input
+    textInput = document.querySelector(".textInput");
+    form.addEventListener("submit", onFormSubmit);
   } else {
     loginMessage.classList.remove("-hidden");
     form.innerHTML = "";
   }
 };
 
-isUserLoggedIn(user);
-
-netlifyIdentity.on("login", () => {
-  isUserLoggedIn(true);
-});
-
-netlifyIdentity.on("logout", () => {
-  isUserLoggedIn(false);
-});
-
-// on form submit
-form.addEventListener("submit", async (event) => {
+// on form submit call backend and display result
+const onFormSubmit = async (event) => {
   event.preventDefault();
   const dish = textInput.value.trim(); // remove whitespace
   if (!dish) {
@@ -55,7 +82,7 @@ form.addEventListener("submit", async (event) => {
   } catch (error) {
     console.error(error);
   }
-});
+};
 
 const callBackend = async (text) => {
   loader.classList.remove("-hidden");
