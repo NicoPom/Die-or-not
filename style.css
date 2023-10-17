@@ -101,8 +101,20 @@ form {
 
 /* TYPO */
 
+em {
+  font-style: normal;
+  background: var(--hot-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .resultContent {
   font-size: 2rem;
+}
+
+.warning-message {
+  font-size: 1.5rem;
+  color: red;
 }
 
 /* backgrounds */
@@ -123,13 +135,6 @@ form {
 
 .bg.red {
   background: var(--hot-gradient);
-}
-
-em {
-  font-style: normal;
-  background: var(--hot-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 /* UI */
