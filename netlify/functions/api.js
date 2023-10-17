@@ -1,6 +1,6 @@
 import OpenAI from "openai";
 
-exports.handler = async function (event, context) {
+export const handler = async (event, context) => {
   // your server-side functionality
   const { text } = event.queryStringParameters;
 
@@ -8,7 +8,7 @@ exports.handler = async function (event, context) {
     apiKey: process.env.OPENAI_API_KEY,
   });
 
-  async function openaiApi(text) {
+  const openaiApi = async (text) => {
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
@@ -25,7 +25,7 @@ exports.handler = async function (event, context) {
     });
     const answer = response.choices[0].message.content;
     return answer;
-  }
+  };
 
   return {
     statusCode: 200,
