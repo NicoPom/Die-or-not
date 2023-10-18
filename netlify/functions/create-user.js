@@ -2,8 +2,15 @@ import { createUser } from "../../database";
 
 export const handler = async (event, context) => {
   // your server-side functionality
-  const { user } = JSON.parse(event.body);
-  const newUser = await createUser(user);
+  const { user } = context.clientContext;
+  const { roles } = user.app_metadata;
+  const userObj = {
+    name: user.user_metadata.full_name,
+    email: user.email,
+    subscribed: roles && roles.includes("pro") ? 1 : 0,
+    unique_id: user.sub,
+  };
+  const newUser = await createUser(userObj);
   try {
     return {
       statusCode: 200,

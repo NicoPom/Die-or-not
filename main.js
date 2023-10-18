@@ -12,23 +12,19 @@ let textInput = null;
 const createUser = async (user) => {
   if (!user) return;
 
-  const { email, user_metadata } = user;
-  const { full_name } = user_metadata;
-
-  const newUser = {
-    name: full_name,
-    email: email,
-    subscribed: false,
-    unique_id: user.id,
-  };
-
-  const response = await fetch("/.netlify/functions/create-user", {
-    method: "POST",
-    body: JSON.stringify({ user: newUser }),
-  });
+  const token = await user.jwt();
 
   try {
-    const result = await response.text();
+    const response = await fetch("/.netlify/functions/create-user", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Oops something went wrong");
+    }
   } catch (error) {
     alert("Oops something went wrong");
   }
