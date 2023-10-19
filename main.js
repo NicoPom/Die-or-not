@@ -1,86 +1,141 @@
 const form = document.querySelector("form");
-const textInput = document.querySelector(".textInput");
-const resultContent = document.querySelector(".resultContent");
+const resultContent = document.querySelector(".result-content");
+const warningMessage = document.querySelector(".warning-message");
 const loader = document.querySelector(".loader");
-const baseURL = "https://dieornot.com/.netlify/functions/api";
-// "http://localhost:8888/.netlify/functions/api";
 
+const baseURL = "https://dieornot.com/.netlify/functions/api";
+// const baseURL = "http://localhost:8888/.netlify/functions/api";
 const loginMessage = document.querySelector(".login-message");
 
-const user = netlifyIdentity.currentUser();
-console.log(user);
+let textInput = null;
 
-// show login message if not logged in or if user is not here
+// const createUser = async (user) => {
+//   if (!user) return;
+
+//   const token = await user.jwt();
+
+//   try {
+//     const response = await fetch("/.netlify/functions/create-user", {
+//       method: "POST",
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//     });
+
+//     if (!response.ok) {
+//       throw new Error("Oops something went wrong");
+//     }
+//   } catch (error) {
+//     alert("Oops something went wrong");
+//   }
+// };
+
+// IS USER LOGGED IN ? show the form or the login message
 const isUserLoggedIn = (state) => {
+  form.innerHTML = "";
+
   if (state) {
     loginMessage.classList.add("-hidden");
-    form.classList.remove("-hidden");
+
     //render the form
     form.innerHTML = `
       <input type="text" class="textInput" name="text" placeholder="Enter a dish name">
       <button> Check </button>
     `;
+
+    // get the input
+    textInput = document.querySelector(".textInput");
+    form.addEventListener("submit", onFormSubmit);
   } else {
     loginMessage.classList.remove("-hidden");
-    form.innerHTML = "";
   }
 };
 
-isUserLoggedIn(user);
-
-netlifyIdentity.on("login", () => {
-  isUserLoggedIn(true);
-});
-
-netlifyIdentity.on("logout", () => {
-  isUserLoggedIn(false);
-});
-
-// on form submit
-form.addEventListener("submit", async (event) => {
+// ON FORM SUBMIT ? call the API and display the result
+const onFormSubmit = async (event) => {
   event.preventDefault();
+
   const dish = textInput.value.trim(); // remove whitespace
+
   if (!dish) {
-    resultContent.innerText = "Please enter a dish name";
+    warningMessage.innerText = "Please enter a dish name";
+    warningMessage.classList.remove("-hidden");
     return;
   }
+
   try {
-    const result = await callBackend(dish);
-    displayResult(dish, result);
+    const answer = await callApi(dish);
+    displayAnswer(dish, answer);
   } catch (error) {
     console.error(error);
   }
-});
+};
 
-const callBackend = async (text) => {
+// CALL API
+const callApi = async (text) => {
   loader.classList.remove("-hidden");
   resultContent.classList.add("-hidden");
-  const response = await fetch(`${baseURL}?text=${text}`);
+
+  const token = await netlifyIdentity.currentUser().jwt();
+
   try {
-    const answer = await response.text();
-    if (answer) {
-      loader.classList.add("-hidden");
-      resultContent.classList.remove("-hidden");
+    const response = await fetch(`${baseURL}?text=${text}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        throw new Error(await response.text());
+      } else {
+        throw new Error("Oops something went wrong");
+      }
     }
-    return answer === "yes" || answer === "Yes";
+
+    const answer = await response.json();
+
+    loader.classList.add("-hidden");
+    resultContent.classList.remove("-hidden");
+    return answer;
   } catch (error) {
-    return "error";
+    displayErrorMessage(error.message);
   }
 };
 
-const displayResult = (dish, result) => {
-  if (result === "error") {
-    resultContent.innerText = "Oops something went wrong";
-    return;
-  }
+// ERROR MESSAGE
+const displayErrorMessage = (message) => {
+  loader.classList.add("-hidden");
+  warningMessage.innerText = message;
+  warningMessage.classList.remove("-hidden");
+};
+
+// DISPLAY RESULT
+const displayAnswer = (dish, answer) => {
   resultContent.innerText =
-    dish + (result ? ` can be Spicy 🥵` : " is not Spicy 😊");
+    dish + (answer ? ` can be Spicy 🥵` : " is not Spicy 😊");
 
   const bgRed = document.querySelector(".bg.red");
 
-  if (result) {
+  if (answer) {
     bgRed.classList.remove("-invisible");
   } else {
     bgRed.classList.add("-invisible");
   }
 };
+
+// EVENT LISTENERS
+netlifyIdentity.on("init", (user) => {
+  isUserLoggedIn(user);
+});
+
+netlifyIdentity.on("login", (user) => {
+  netlifyIdentity.close();
+  isUserLoggedIn(user);
+});
+
+netlifyIdentity.on("logout", (user) => {
+  isUserLoggedIn(user);
+  netlifyIdentity.close();
+});

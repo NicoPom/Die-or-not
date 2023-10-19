@@ -92,6 +92,7 @@ form {
   /* flex-direction: column;
   align-items: center; */
   gap: 1rem;
+  justify-content: center;
 }
 
 .resultContent {
@@ -100,8 +101,20 @@ form {
 
 /* TYPO */
 
+em {
+  font-style: normal;
+  background: var(--hot-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .resultContent {
   font-size: 2rem;
+}
+
+.warning-message {
+  font-size: 1.5rem;
+  color: red;
 }
 
 /* backgrounds */

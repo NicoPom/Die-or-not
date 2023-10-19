@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="style.css">
   <!-- include the widget -->
   <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <title>Vite App</title>
+  <title>Die Or Not</title>
 </head>
 
 <body>
@@ -20,7 +20,7 @@
     <div data-netlify-identity-menu></div>
   </header>
   <main id="app">
-    <h1 class="title">DIE OR NOT </h1>
+    <h1 class="title">Check if your food is <em>spicy</em> or not ?</h1>
     <p>Check if your food is spicy or not ?</p>
     <div class="login-message">
       <p>Log in to check your food</p>
@@ -29,9 +29,10 @@
 
     <form>
     </form>
+    <p class="warning-message -hidden"></p>
     <div class="result">
       <div class="loader -hidden"></div>
-      <p class="resultContent -hidden"></p>
+      <p class="result-content -hidden"></p>
     </div>
   </main>
   <script type="module" src="/main.js"></script>
