@@ -39,7 +39,7 @@ export const handler = async (event, context) => {
         ...user,
         app_metadata: {
           ...user.app_metadata,
-          roles: ["admin"],
+          roles: ["free"],
         },
       }),
     };
