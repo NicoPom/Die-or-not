@@ -9,26 +9,26 @@ const loginMessage = document.querySelector(".login-message");
 
 let textInput = null;
 
-const createUser = async (user) => {
-  if (!user) return;
+// const createUser = async (user) => {
+//   if (!user) return;
 
-  const token = await user.jwt();
+//   const token = await user.jwt();
 
-  try {
-    const response = await fetch("/.netlify/functions/create-user", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+//   try {
+//     const response = await fetch("/.netlify/functions/create-user", {
+//       method: "POST",
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//     });
 
-    if (!response.ok) {
-      throw new Error("Oops something went wrong");
-    }
-  } catch (error) {
-    alert("Oops something went wrong");
-  }
-};
+//     if (!response.ok) {
+//       throw new Error("Oops something went wrong");
+//     }
+//   } catch (error) {
+//     alert("Oops something went wrong");
+//   }
+// };
 
 // IS USER LOGGED IN ? show the form or the login message
 const isUserLoggedIn = (state) => {
@@ -133,14 +133,9 @@ netlifyIdentity.on("init", (user) => {
 netlifyIdentity.on("login", (user) => {
   netlifyIdentity.close();
   isUserLoggedIn(user);
-  createUser(user);
 });
 
 netlifyIdentity.on("logout", (user) => {
   isUserLoggedIn(user);
   netlifyIdentity.close();
-});
-
-netlifyIdentity.on("signup", (user) => {
-  // createUser(user);
 });
