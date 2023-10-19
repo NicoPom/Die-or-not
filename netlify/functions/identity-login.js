@@ -8,17 +8,17 @@ export const handler = async (event, context) => {
   const { user } = JSON.parse(event.body);
 
   // // create a new cust"omer in Stripe
-  // const customer = await stripe.customers.create({
-  //   email: user.email,
-  // });
+  const customer = await stripe.customers.create({
+    email: user.email,
+  });
 
   // TODO: check if the user already exists in the stripe database to avoid re-creating the customer
 
   // // subscribe the new customer to the free plan
-  // await stripe.subscriptions.create({
-  //   customer: customer.id,
-  //   items: [{ price: process.env.STRIPE_DEFAULT_PRICE_PLAN }],
-  // });
+  await stripe.subscriptions.create({
+    customer: customer.id,
+    items: [{ price: process.env.STRIPE_DEFAULT_PRICE_PLAN }],
+  });
 
   // // create a new user object to be saved in the database
   const userObj = {
@@ -33,6 +33,10 @@ export const handler = async (event, context) => {
   try {
     // save the user in the database
     const response = await createUser(userObj);
+
+    if (!response) {
+      throw new Error("Something went wrong");
+    }
 
     return {
       statusCode: 200,
