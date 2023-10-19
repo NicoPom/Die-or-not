@@ -1,10 +1,10 @@
 import { createUser, getUsers, getUserByNetlifyID } from "../../database";
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+import Stripe from "stripe";
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const handler = async (event, context) => {
   // your server-side functionality
   const { user } = context.clientContext;
-  const { roles } = user.app_metadata;
 
   // create a new customer in Stripe
   const customer = await stripe.customers.create({
