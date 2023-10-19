@@ -26,8 +26,7 @@ export const handler = async (event, context) => {
     email: user.email,
     role: "free",
     netlify_id: user.sub,
-    // stripe_id: customer.id,
-    stripe_id: "123",
+    stripe_id: customer.id,
   };
 
   try {
