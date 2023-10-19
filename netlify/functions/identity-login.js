@@ -25,12 +25,14 @@ export const handler = async (event, context) => {
     name: user.user_metadata.full_name,
     email: user.email,
     role: "free",
-    netlify_id: user.sub,
+    netlify_id: user.id,
     stripe_id: customer.id,
   };
 
+  console.log(userObj);
+
   // save the user in the database
-  await createUser(userObj);
+  console.log(await createUser(userObj));
 
   try {
     return {
