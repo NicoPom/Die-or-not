@@ -21,7 +21,7 @@ export const handler = async (event, context) => {
   const userObj = {
     name: user.user_metadata.full_name,
     email: user.email,
-    role: roles ? roles[0] : "free",
+    role: "free",
     netlify_id: user.sub,
     stripe_id: customer.id,
   };
@@ -31,7 +31,11 @@ export const handler = async (event, context) => {
   try {
     return {
       statusCode: 200,
-      body: JSON.stringify(newUser),
+      body: JSON.stringify({
+        app_metadata: {
+          roles: "free",
+        },
+      }),
     };
   } catch (error) {
     return {
