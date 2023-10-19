@@ -29,14 +29,10 @@ export const handler = async (event, context) => {
     stripe_id: customer.id,
   };
 
+  // save the user in the database
+  await createUser(userObj);
+
   try {
-    // save the user in the database
-    const response = await createUser(userObj);
-
-    if (!response) {
-      throw new Error("Something went wrong");
-    }
-
     return {
       statusCode: 200,
       body: JSON.stringify({
