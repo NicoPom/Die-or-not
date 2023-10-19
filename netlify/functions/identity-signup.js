@@ -29,16 +29,12 @@ export const handler = async (event, context) => {
   };
 
   // save the user in the database
-  await createUser(userObj);
+  const newUser = await createUser(userObj);
 
   try {
     return {
       statusCode: 200,
-      body: JSON.stringify({
-        app_metadata: {
-          roles: ["free"],
-        },
-      }),
+      body: JSON.stringify(newUser),
     };
   } catch (error) {
     return {
