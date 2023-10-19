@@ -8,17 +8,17 @@ export const handler = async (event, context) => {
   const { user } = context.clientContext;
 
   // // create a new customer in Stripe
-  const customer = await stripe.customers.create({
-    email: user.email,
-  });
+  // const customer = await stripe.customers.create({
+  //   email: user.email,
+  // });
 
   // TODO: check if the user already exists in the stripe database to avoid re-creating the customer
 
   // // subscribe the new customer to the free plan
-  await stripe.subscriptions.create({
-    customer: customer.id,
-    items: [{ price: process.env.STRIPE_DEFAULT_PRICE_PLAN }],
-  });
+  // await stripe.subscriptions.create({
+  //   customer: customer.id,
+  //   items: [{ price: process.env.STRIPE_DEFAULT_PRICE_PLAN }],
+  // });
 
   // // create a new user object to be saved in the database
   const userObj = {
@@ -26,7 +26,8 @@ export const handler = async (event, context) => {
     email: user.email,
     role: "free",
     netlify_id: user.sub,
-    stripe_id: customer.id,
+    // stripe_id: customer.id,
+    stripe_id: "123",
   };
 
   try {
