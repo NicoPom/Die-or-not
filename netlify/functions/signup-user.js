@@ -3,6 +3,8 @@ import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const handler = async (event, context) => {
+  // TODO: authorization check
+
   const { user } = context.clientContext;
 
   // // create a new customer in Stripe
@@ -27,14 +29,9 @@ export const handler = async (event, context) => {
     stripe_id: customer.id,
   };
 
-  // save the user in the database
-
   try {
+    // save the user in the database
     const response = await createUser(userObj);
-
-    if (!response.ok) {
-      throw new Error(response);
-    }
 
     return {
       statusCode: 200,

@@ -35,9 +35,15 @@ const createUser = async (user) => {
     }
 
     const userId = result.insertId;
-    return "USER CREATED:" + getUserByNetlifyID(userId);
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        message: "User created",
+        user: getUserByNetlifyID(userId),
+      }),
+    };
   } catch (err) {
-    return err;
+    return {};
   }
 };
 
