@@ -29,6 +29,7 @@ const signUpUser = async (user) => {
 
     const data = await response.json();
     console.log(data);
+    console.log(user);
   } catch (error) {
     console.error(error);
   }
