@@ -10,30 +10,30 @@ const loginMessage = document.querySelector(".login-message");
 
 let textInput = null;
 
-const signUpUser = async (user) => {
-  if (!user) return;
+// const signUpUser = async (user) => {
+//   if (!user) return;
 
-  const token = await user.jwt();
+//   const token = await user.jwt();
 
-  try {
-    const response = await fetch("/.netlify/functions/signup-user", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+//   try {
+//     const response = await fetch("/.netlify/functions/signup-user", {
+//       method: "POST",
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//     });
 
-    if (!response.ok) {
-      throw new Error(await response.text());
-    }
+//     if (!response.ok) {
+//       throw new Error(await response.text());
+//     }
 
-    const data = await response.json();
-    console.log(data);
-    console.log(user);
-  } catch (error) {
-    console.error(error);
-  }
-};
+//     const data = await response.json();
+//     console.log(data);
+//     console.log(user);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
 // IS USER LOGGED IN ? show the form or the login message
 const isUserLoggedIn = (state) => {
@@ -138,7 +138,7 @@ netlifyIdentity.on("init", (user) => {
 netlifyIdentity.on("login", (user) => {
   netlifyIdentity.close();
   isUserLoggedIn(user);
-  signUpUser(user);
+  // signUpUser(user);
 });
 
 netlifyIdentity.on("logout", (user) => {
@@ -150,7 +150,7 @@ netlifyIdentity.on("signup", (user) => {
   // signUpUser(user);
 });
 
-testBtn.addEventListener("click", () => {
-  // const user = netlifyIdentity.currentUser();
-  // signUpUser(user);
-});
+// testBtn.addEventListener("click", () => {
+//   // const user = netlifyIdentity.currentUser();
+//   // signUpUser(user);
+// });

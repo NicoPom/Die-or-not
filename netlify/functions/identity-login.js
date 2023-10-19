@@ -5,9 +5,9 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 export const handler = async (event, context) => {
   // TODO: authorization check
 
-  const { user } = context.clientContext;
+  const { user } = JSON.parse(event.body);
 
-  // // create a new customer in Stripe
+  // // create a new cust"omer in Stripe
   // const customer = await stripe.customers.create({
   //   email: user.email,
   // });
@@ -37,9 +37,7 @@ export const handler = async (event, context) => {
     return {
       statusCode: 200,
       body: JSON.stringify({
-        ...user,
         app_metadata: {
-          ...user.app_metadata,
           roles: ["free"],
         },
       }),
