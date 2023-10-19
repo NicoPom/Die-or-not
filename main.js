@@ -2,6 +2,7 @@ const form = document.querySelector("form");
 const resultContent = document.querySelector(".result-content");
 const warningMessage = document.querySelector(".warning-message");
 const loader = document.querySelector(".loader");
+const testBtn = document.querySelector("#testBtn");
 
 const baseURL = "https://dieornot.com/.netlify/functions/api";
 // const baseURL = "http://localhost:8888/.netlify/functions/api";
@@ -9,26 +10,29 @@ const loginMessage = document.querySelector(".login-message");
 
 let textInput = null;
 
-// const createUser = async (user) => {
-//   if (!user) return;
+const signUpUser = async (user) => {
+  if (!user) return;
 
-//   const token = await user.jwt();
+  const token = await user.jwt();
 
-//   try {
-//     const response = await fetch("/.netlify/functions/create-user", {
-//       method: "POST",
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//     });
+  try {
+    const response = await fetch("/.netlify/functions/signup-user", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-//     if (!response.ok) {
-//       throw new Error("Oops something went wrong");
-//     }
-//   } catch (error) {
-//     alert("Oops something went wrong");
-//   }
-// };
+    if (!response.ok) {
+      throw new Error(await response.text());
+    }
+
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 // IS USER LOGGED IN ? show the form or the login message
 const isUserLoggedIn = (state) => {
@@ -138,4 +142,13 @@ netlifyIdentity.on("login", (user) => {
 netlifyIdentity.on("logout", (user) => {
   isUserLoggedIn(user);
   netlifyIdentity.close();
+});
+
+netlifyIdentity.on("signup", (user) => {
+  // signUpUser(user);
+});
+
+testBtn.addEventListener("click", () => {
+  const user = netlifyIdentity.currentUser();
+  signUpUser(user);
 });
