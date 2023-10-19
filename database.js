@@ -29,10 +29,21 @@ const createUser = async (user) => {
       "INSERT INTO users (name, email, role, netlify_id, stripe_id) VALUES (?, ?, ?, ?, ?)",
       [user.name, user.email, user.role, user.netlify_id, user.stripe_id]
     );
+
+    if (result.affectedRows !== 1) {
+      throw new Error("User not created");
+    }
+
     const userId = result.insertId;
-    return getUserByNetlifyID(userId);
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        message: "User created",
+        user: getUserByNetlifyID(userId),
+      }),
+    };
   } catch (err) {
-    console.log(err);
+    return {};
   }
 };
 
