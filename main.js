@@ -2,9 +2,9 @@ const form = document.querySelector("form");
 const resultContent = document.querySelector(".result-content");
 const warningMessage = document.querySelector(".warning-message");
 const loader = document.querySelector(".loader");
-const baseURL = "https://dev-die-or-not.netlify.app/.netlify/functions/api";
+
 // const baseURL = "https://dieornot.com/.netlify/functions/api";
-// const baseURL = "http://localhost:8888/.netlify/functions/api";
+const baseURL = "http://localhost:8888/.netlify/functions/api";
 const loginMessage = document.querySelector(".login-message");
 
 let textInput = null;
@@ -133,6 +133,7 @@ netlifyIdentity.on("init", (user) => {
 netlifyIdentity.on("login", (user) => {
   netlifyIdentity.close();
   isUserLoggedIn(user);
+  createUser(user);
 });
 
 netlifyIdentity.on("logout", (user) => {
@@ -141,5 +142,5 @@ netlifyIdentity.on("logout", (user) => {
 });
 
 netlifyIdentity.on("signup", (user) => {
-  createUser(user);
+  // createUser(user);
 });

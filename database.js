@@ -1,31 +1,39 @@
 import mysql from "mysql2";
 
-const pool = mysql
-  .createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-  })
-  .promise();
+const pool = mysql.createPool(process.env.DB_URL_DEV).promise();
 
 const getUsers = async () => {
-  const [result] = await pool.query("SELECT * FROM users");
-  return result;
+  try {
+    const [result] = await pool.query("SELECT * FROM users");
+    return result;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
-const getUser = async (id) => {
-  const [result] = await pool.query("SELECT * FROM users WHERE id = ?", [id]);
-  return result;
+const getUserByNetlifyID = async (id) => {
+  try {
+    const [result] = await pool.query(
+      "SELECT * FROM users WHERE netlify_id = ?",
+      [id]
+    );
+    return result;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 const createUser = async (user) => {
-  const [result] = await pool.query(
-    "INSERT INTO users (name, email, subscribed, unique_id) VALUES (?, ?, ?, ?)",
-    [user.name, user.email, user.subscribed, user.unique_id]
-  );
-  const userId = result.insertId;
-  return getUser(userId);
+  try {
+    const [result] = await pool.query(
+      "INSERT INTO users (name, email, role, netlify_id, stripe_id) VALUES (?, ?, ?, ?, ?)",
+      [user.name, user.email, user.role, user.netlify_id, user.stripe_id]
+    );
+    const userId = result.insertId;
+    return getUserByNetlifyID(userId);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
-export { getUsers, getUser, createUser };
+export { getUsers, getUserByNetlifyID, createUser };
