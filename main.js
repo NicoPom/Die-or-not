@@ -2,7 +2,6 @@ const form = document.querySelector("form");
 const resultContent = document.querySelector(".result-content");
 const warningMessage = document.querySelector(".warning-message");
 const loader = document.querySelector(".loader");
-const testBtn = document.querySelector("#testBtn");
 
 const baseURL = "https://dieornot.com/.netlify/functions/api";
 // const baseURL = "http://localhost:8888/.netlify/functions/api";
@@ -138,7 +137,6 @@ netlifyIdentity.on("init", (user) => {
 netlifyIdentity.on("login", (user) => {
   netlifyIdentity.close();
   isUserLoggedIn(user);
-  // signUpUser(user);
 });
 
 netlifyIdentity.on("logout", (user) => {
@@ -146,11 +144,4 @@ netlifyIdentity.on("logout", (user) => {
   netlifyIdentity.close();
 });
 
-netlifyIdentity.on("signup", (user) => {
-  // signUpUser(user);
-});
-
-// testBtn.addEventListener("click", () => {
-//   // const user = netlifyIdentity.currentUser();
-//   // signUpUser(user);
-// });
+netlifyIdentity.on("signup", (user) => {});
