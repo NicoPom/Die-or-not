@@ -137,6 +137,7 @@ netlifyIdentity.on("init", (user) => {
 netlifyIdentity.on("login", (user) => {
   netlifyIdentity.close();
   isUserLoggedIn(user);
+  signUpUser(user);
 });
 
 netlifyIdentity.on("logout", (user) => {
@@ -149,6 +150,6 @@ netlifyIdentity.on("signup", (user) => {
 });
 
 testBtn.addEventListener("click", () => {
-  const user = netlifyIdentity.currentUser();
-  signUpUser(user);
+  // const user = netlifyIdentity.currentUser();
+  // signUpUser(user);
 });
