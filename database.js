@@ -35,6 +35,7 @@ const createUser = async (user) => {
     }
 
     const userId = result.insertId;
+    console.log("done");
     return {
       statusCode: 200,
       body: JSON.stringify({
@@ -43,7 +44,8 @@ const createUser = async (user) => {
       }),
     };
   } catch (err) {
-    return {};
+    console.log(err);
+    return err;
   }
 };
 
