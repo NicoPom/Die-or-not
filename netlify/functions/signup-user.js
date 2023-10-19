@@ -36,8 +36,11 @@ export const handler = async (event, context) => {
     return {
       statusCode: 200,
       body: JSON.stringify({
-        app_metadata: { roles: ["free"] },
-        user_metadata: user.user_metadata,
+        ...user,
+        app_metadata: {
+          ...user.app_metadata,
+          roles: ["admin"],
+        },
       }),
     };
   } catch (error) {
