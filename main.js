@@ -3,8 +3,8 @@ const resultContent = document.querySelector(".result-content");
 const warningMessage = document.querySelector(".warning-message");
 const loader = document.querySelector(".loader");
 
-// const baseURL = "https://dieornot.com/.netlify/functions/api";
-const baseURL = "http://localhost:8888/.netlify/functions/api";
+const baseURL = "https://dieornot.com/.netlify/functions/api";
+// const baseURL = "http://localhost:8888/.netlify/functions/api";
 const loginMessage = document.querySelector(".login-message");
 
 let textInput = null;
