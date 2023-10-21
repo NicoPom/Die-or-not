@@ -1,6 +1,11 @@
 import OpenAI from "openai";
+import {
+  addApiCallCount,
+  getUserApiCallCount,
+  resetApiCallCount,
+} from "../../database";
 
-const allowedRoles = ["admin", "pro"];
+const maxApiCalls = 3;
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -10,11 +15,15 @@ export const handler = async (event, context) => {
   const { user } = context.clientContext;
   const { roles } = user.app_metadata;
 
-  // if user is not logged in or doesn't have the right role
-  if (!roles || !roles.some((role) => allowedRoles.includes(role))) {
+  // if user is not logged in or exceed the api call limit as a free user
+  if (
+    !roles ||
+    (roles.includes("free") &&
+      (await getUserApiCallCount(user.sub)) >= maxApiCalls)
+  ) {
     return {
       statusCode: 401,
-      body: "To use this function you need to be logged in as a pro user",
+      body: "You've exceeded the number of free requests. Please upgrade to the pro plan.",
     };
   }
 
@@ -23,26 +32,36 @@ export const handler = async (event, context) => {
 
   return {
     statusCode: 200,
-    body: JSON.stringify(await spicyOrNot(text)),
+    body: JSON.stringify(await spicyOrNot(text, user)),
   };
 };
 
-const spicyOrNot = async (text) => {
-  const response = await openai.chat.completions.create({
-    model: "gpt-3.5-turbo",
-    messages: [
-      {
-        role: "user",
-        content: `Is ${text} spicy ? Answer by 'yes' or 'no' with no punctuation`,
-      },
-    ],
-    temperature: 0.1,
-    max_tokens: 1,
-    top_p: 1,
-    frequency_penalty: 0,
-    presence_penalty: 0,
-  });
-  const answer = response.choices[0].message.content;
+const spicyOrNot = async (text, user) => {
+  try {
+    const response = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "user",
+          content: `Is ${text} spicy ? Answer by 'yes' or 'no' with no punctuation`,
+        },
+      ],
+      temperature: 0.1,
+      max_tokens: 1,
+      top_p: 1,
+      frequency_penalty: 0,
+      presence_penalty: 0,
+    });
+    const answer = response.choices[0].message.content;
 
-  return answer === "yes" || answer === "Yes"; // return true or false
+    // increment the api call count
+    await addApiCallCount(user.sub);
+
+    // reset api call count
+    // await resetApiCallCount(user.sub);
+
+    return answer === "yes" || answer === "Yes"; // return true or false
+  } catch (error) {
+    console.log(error);
+  }
 };

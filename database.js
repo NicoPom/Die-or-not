@@ -11,13 +11,55 @@ const getUsers = async () => {
   }
 };
 
-const getUserByNetlifyID = async (id) => {
+const getUserByNetlifyId = async (id) => {
   try {
     const [result] = await pool.query(
       "SELECT * FROM users WHERE netlify_id = ?",
       [id]
     );
     return result;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const addApiCallCount = async (id) => {
+  try {
+    const [result] = await pool.query(
+      "UPDATE users SET api_calls = api_calls + 1 WHERE netlify_id = ?",
+      [id]
+    );
+    if (result.affectedRows !== 1) {
+      throw new Error("User not updated");
+    }
+    console.log("+1 api call count", await getUserByNetlifyId(id));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const resetApiCallCount = async (id) => {
+  try {
+    const [result] = await pool.query(
+      "UPDATE users SET api_calls = 0 WHERE netlify_id = ?",
+      [id]
+    );
+    if (result.affectedRows !== 1) {
+      throw new Error("User not updated");
+    }
+    console.log("reset api call count", await getUserByNetlifyId(id));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const getUserApiCallCount = async (id) => {
+  try {
+    const [result] = await pool.query(
+      "SELECT api_calls FROM users WHERE netlify_id = ?",
+      [id]
+    );
+    return result[0].api_calls;
   } catch (err) {
     console.log(err);
   }
@@ -36,17 +78,18 @@ const createUser = async (user) => {
 
     const userId = result.insertId;
     console.log("done");
-    return {
-      statusCode: 200,
-      body: JSON.stringify({
-        message: "User created",
-        user: getUserByNetlifyID(userId),
-      }),
-    };
+    return await getUserByNetlifyId(userId);
   } catch (err) {
     console.log(err);
     return err;
   }
 };
 
-export { getUsers, getUserByNetlifyID, createUser };
+export {
+  getUsers,
+  getUserByNetlifyId,
+  createUser,
+  addApiCallCount,
+  resetApiCallCount,
+  getUserApiCallCount,
+};

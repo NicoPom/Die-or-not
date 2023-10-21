@@ -9,31 +9,6 @@ const loginMessage = document.querySelector(".login-message");
 
 let textInput = null;
 
-// const signUpUser = async (user) => {
-//   if (!user) return;
-
-//   const token = await user.jwt();
-
-//   try {
-//     const response = await fetch("/.netlify/functions/signup-user", {
-//       method: "POST",
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//     });
-
-//     if (!response.ok) {
-//       throw new Error(await response.text());
-//     }
-
-//     const data = await response.json();
-//     console.log(data);
-//     console.log(user);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
-
 // IS USER LOGGED IN ? show the form or the login message
 const isUserLoggedIn = (state) => {
   form.innerHTML = "";
@@ -57,6 +32,9 @@ const isUserLoggedIn = (state) => {
 
 // ON FORM SUBMIT ? call the API and display the result
 const onFormSubmit = async (event) => {
+  // reset the UI
+  warningMessage.innerText = "";
+  resultContent.innerText = "";
   event.preventDefault();
 
   const dish = textInput.value.trim(); // remove whitespace
