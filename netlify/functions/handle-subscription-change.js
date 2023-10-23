@@ -2,7 +2,7 @@ import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 import { getUserByStripeId } from "../../database";
 
-export const handler = async (event, context) => {
+export const handler = async ({ body, headers }, context) => {
   try {
     // make sure this event was sent legitimately.
     const stripeEvent = stripe.webhooks.constructEvent(
