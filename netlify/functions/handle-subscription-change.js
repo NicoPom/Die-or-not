@@ -27,7 +27,7 @@ export const handler = async (event, context) => {
     // send a call to the Netlify Identity admin API to update the user role
     const { identity } = context.clientContext;
     try {
-      await fetch(`${identity.url}/admin/users/${netlifyID}`, {
+      await fetch(`${identity.url}/admin/users/${netlify_id}`, {
         method: "PUT",
         headers: {
           // note that this is a special admin token for the Identity API
