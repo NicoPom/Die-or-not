@@ -23,6 +23,18 @@ const getUserByNetlifyId = async (id) => {
   }
 };
 
+const getUserByStripeId = async (id) => {
+  try {
+    const [result] = await pool.query(
+      "SELECT * FROM users WHERE stripe_id = ?",
+      [id]
+    );
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 const addApiCallCount = async (id) => {
   try {
     const [result] = await pool.query(
@@ -76,6 +88,7 @@ const createUser = async (user) => {
 export {
   getUsers,
   getUserByNetlifyId,
+  getUserByStripeId,
   createUser,
   addApiCallCount,
   resetApiCallCount,
