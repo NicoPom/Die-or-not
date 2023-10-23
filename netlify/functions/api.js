@@ -1,11 +1,11 @@
 import OpenAI from "openai";
 import {
   addApiCallCount,
-  getUserApiCallCount,
+  getUserByNetlifyId,
   resetApiCallCount,
 } from "../../database";
 
-const maxApiCalls = 3;
+const maxApiCalls = 100;
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -13,14 +13,13 @@ const openai = new OpenAI({
 export const handler = async (event, context) => {
   // authorization check
   const { user } = context.clientContext;
+  const userId = user.sub;
   const { roles } = user.app_metadata;
+  const [databaseUser] = await getUserByNetlifyId(userId);
+  const { api_calls } = databaseUser;
 
   // if user is not logged in or exceed the api call limit as a free user
-  if (
-    !roles ||
-    (roles.includes("free") &&
-      (await getUserApiCallCount(user.sub)) >= maxApiCalls)
-  ) {
+  if (!roles || (roles.includes("free") && api_calls >= maxApiCalls)) {
     return {
       statusCode: 401,
       body: "You've exceeded the number of free requests. Please upgrade to the pro plan.",
@@ -32,11 +31,11 @@ export const handler = async (event, context) => {
 
   return {
     statusCode: 200,
-    body: JSON.stringify(await spicyOrNot(text, user)),
+    body: JSON.stringify(await spicyOrNot(text, userId)),
   };
 };
 
-const spicyOrNot = async (text, user) => {
+const spicyOrNot = async (text, userId) => {
   try {
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
@@ -55,10 +54,10 @@ const spicyOrNot = async (text, user) => {
     const answer = response.choices[0].message.content;
 
     // increment the api call count
-    await addApiCallCount(user.sub);
+    await addApiCallCount(userId);
 
     // reset api call count
-    // await resetApiCallCount(user.sub);
+    // await resetApiCallCount(userId);
 
     return answer === "yes" || answer === "Yes"; // return true or false
   } catch (error) {

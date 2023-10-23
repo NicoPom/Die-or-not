@@ -53,18 +53,6 @@ const resetApiCallCount = async (id) => {
   }
 };
 
-const getUserApiCallCount = async (id) => {
-  try {
-    const [result] = await pool.query(
-      "SELECT api_calls FROM users WHERE netlify_id = ?",
-      [id]
-    );
-    return result[0].api_calls;
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 const createUser = async (user) => {
   try {
     const [result] = await pool.query(
@@ -91,5 +79,4 @@ export {
   createUser,
   addApiCallCount,
   resetApiCallCount,
-  getUserApiCallCount,
 };
