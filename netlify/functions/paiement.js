@@ -11,10 +11,13 @@ export const handler = async (event, context) => {
 
   const { stripe_id } = result[0];
 
+  const link = await stripe.billingPortal.sessions.create({
+    customer: stripe_id,
+    return_url: process.env.URL,
+  });
+
   return {
     statusCode: 200,
-    body: JSON.stringify({
-      customerId: stripe_id,
-    }),
+    body: JSON.stringify(link.url),
   };
 };
