@@ -7,7 +7,7 @@ const getUsers = async () => {
     const [result] = await pool.query("SELECT * FROM users");
     return result;
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
@@ -19,7 +19,7 @@ const getUserByNetlifyId = async (id) => {
     );
     return result;
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
@@ -34,7 +34,7 @@ const addApiCallCount = async (id) => {
     }
     console.log("+1 api call count", await getUserByNetlifyId(id));
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
@@ -49,7 +49,7 @@ const resetApiCallCount = async (id) => {
     }
     console.log("reset api call count", await getUserByNetlifyId(id));
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
@@ -68,7 +68,7 @@ const createUser = async (user) => {
     console.log("done");
     return await getUserByNetlifyId(userId);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return err;
   }
 };
