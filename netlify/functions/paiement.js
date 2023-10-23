@@ -11,8 +11,6 @@ export const handler = async (event, context) => {
 
   const { stripe_id } = result[0];
 
-  console.log(stripe_id);
-
   return {
     statusCode: 200,
     body: JSON.stringify({
