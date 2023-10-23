@@ -27,7 +27,7 @@ export const handler = async (event, context) => {
     console.log(plan, role);
     return {
       statusCode: 200,
-      body: JSON.stringify({ netlify_id_of_the_changed_plan: netlify_id }),
+      body: JSON.stringify({ received: true }),
     };
   } catch (err) {
     return {
