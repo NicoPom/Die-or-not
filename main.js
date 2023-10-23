@@ -116,6 +116,10 @@ const stripeBuy = async () => {
         Authorization: `Bearer ${token}`,
       },
     });
+
+    // redirect to the stripe portal
+    const link = await response.json();
+    window.location.href = link;
   } catch (error) {
     console.error(error);
   }
