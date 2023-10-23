@@ -2,9 +2,10 @@ const form = document.querySelector("form");
 const resultContent = document.querySelector(".result-content");
 const warningMessage = document.querySelector(".warning-message");
 const loader = document.querySelector(".loader");
+const buyBtn = document.querySelector("#buyBtn");
 
-const baseURL = "https://dieornot.com/.netlify/functions/api";
-// const baseURL = "http://localhost:8888/.netlify/functions/api";
+// const baseURL = "https://dieornot.com/.netlify/functions/api";
+const baseURL = "http://localhost:8888/.netlify/functions/api";
 const loginMessage = document.querySelector(".login-message");
 
 let textInput = null;
@@ -107,6 +108,22 @@ const displayAnswer = (dish, answer) => {
   }
 };
 
+// BUY BUTTON
+const stripeBuy = async () => {
+  const token = await netlifyIdentity.currentUser().jwt();
+
+  try {
+    const response = await fetch("/.netlify/functions/paiement", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 // EVENT LISTENERS
 netlifyIdentity.on("init", (user) => {
   isUserLoggedIn(user);
@@ -122,4 +139,6 @@ netlifyIdentity.on("logout", (user) => {
   netlifyIdentity.close();
 });
 
-netlifyIdentity.on("signup", (user) => {});
+buyBtn.addEventListener("click", () => {
+  stripeBuy();
+});
