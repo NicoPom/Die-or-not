@@ -24,7 +24,25 @@ export const handler = async (event, context) => {
     const plan = subscription.items.data[0].plan.nickname;
     const role = plan.split(" ")[0].toLowerCase();
 
-    console.log(plan, role);
+    // send a call to the Netlify Identity admin API to update the user role
+    const { identity } = context.clientContext;
+    try {
+      await fetch(`${identity.url}/admin/users/${netlifyID}`, {
+        method: "PUT",
+        headers: {
+          // note that this is a special admin token for the Identity API
+          Authorization: `Bearer ${identity.token}`,
+        },
+        body: JSON.stringify({
+          app_metadata: {
+            roles: [role],
+          },
+        }),
+      });
+    } catch (err) {
+      console.log(err);
+    }
+
     return {
       statusCode: 200,
       body: JSON.stringify({ received: true }),
