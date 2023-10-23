@@ -110,12 +110,15 @@ const stripeBuy = async () => {
   const token = await netlifyIdentity.currentUser().jwt();
 
   try {
-    const response = await fetch("/.netlify/functions/paiement", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      "/.netlify/functions/manage-subscription-plan",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     // redirect to the stripe portal
     const link = await response.json();
