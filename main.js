@@ -136,9 +136,7 @@ netlifyIdentity.on("init", (user) => {
 netlifyIdentity.on("login", (user) => {
   netlifyIdentity.close();
   isUserLoggedIn(user);
-  netlifyIdentity.refresh().then((jwt) => {
-    console.log("JWT token", jwt);
-  });
+  netlifyIdentity.refresh(true);
 });
 
 netlifyIdentity.on("logout", (user) => {
