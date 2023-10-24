@@ -8,10 +8,10 @@ const loginMessage = document.querySelector(".login-message");
 let textInput = null;
 
 // IS USER LOGGED IN ? show the form or the login message
-const isUserLoggedIn = (state) => {
+const updateUserUi = (user) => {
   form.innerHTML = "";
 
-  if (state) {
+  if (user) {
     loginMessage.classList.add("-hidden");
 
     //render the form
@@ -30,6 +30,8 @@ const isUserLoggedIn = (state) => {
 
 // ON FORM SUBMIT ? call the API and display the result
 const onFormSubmit = async (event) => {
+  // get always a fresh token
+  const token = await netlifyIdentity.currentUser().jwt(true);
   // reset the UI
   warningMessage.innerText = "";
   resultContent.innerText = "";
@@ -43,23 +45,17 @@ const onFormSubmit = async (event) => {
     return;
   }
 
-  try {
-    const answer = await callApi(dish);
-    displayAnswer(dish, answer);
-  } catch (error) {
-    console.error(error);
-  }
+  const answer = await callApi(dish, token);
+  displayAnswer(dish, answer);
 };
 
 // CALL API
-const callApi = async (text) => {
+const callApi = async (dish, token) => {
   loader.classList.remove("-hidden");
   resultContent.classList.add("-hidden");
 
-  const token = await netlifyIdentity.currentUser().jwt();
-
   try {
-    const response = await fetch(`/.netlify/functions/api?text=${text}`, {
+    const response = await fetch(`/.netlify/functions/api?text=${dish}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -128,22 +124,17 @@ const stripeBuy = async () => {
   }
 };
 
+const handleUserStateChange = (user) => {
+  updateUserUi(user);
+  netlifyIdentity.close();
+};
+
 // EVENT LISTENERS
-netlifyIdentity.on("init", (user) => {
-  isUserLoggedIn(user);
-  // netlifyIdentity.refresh(true);
-  console.log(netlifyIdentity.currentUser());
-});
+netlifyIdentity.on("init", handleUserStateChange);
 
-netlifyIdentity.on("login", (user) => {
-  netlifyIdentity.close();
-  isUserLoggedIn(user);
-});
+netlifyIdentity.on("login", handleUserStateChange);
 
-netlifyIdentity.on("logout", (user) => {
-  isUserLoggedIn(user);
-  netlifyIdentity.close();
-});
+netlifyIdentity.on("logout", handleUserStateChange);
 
 buyBtn.addEventListener("click", () => {
   stripeBuy();

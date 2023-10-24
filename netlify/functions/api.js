@@ -1,9 +1,5 @@
 import OpenAI from "openai";
-import {
-  addApiCallCount,
-  getUserByNetlifyId,
-  resetApiCallCount,
-} from "../../database";
+import { addApiCallCount, getUserByNetlifyId } from "../../database";
 
 const maxApiCalls = 3;
 const openai = new OpenAI({
@@ -55,9 +51,6 @@ const spicyOrNot = async (text, userId) => {
 
     // increment the api call count
     await addApiCallCount(userId);
-
-    // reset api call count
-    // await resetApiCallCount(userId);
 
     return answer === "yes" || answer === "Yes"; // return true or false
   } catch (error) {
