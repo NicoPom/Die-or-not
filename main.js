@@ -30,12 +30,14 @@ const updateUserUi = (user) => {
 
 // ON FORM SUBMIT ? call the API and display the result
 const onFormSubmit = async (event) => {
-  // get always a fresh token
-  const token = await netlifyIdentity.currentUser().jwt(true);
+  event.preventDefault();
+
   // reset the UI
   warningMessage.innerText = "";
   resultContent.innerText = "";
-  event.preventDefault();
+
+  // get always a fresh token
+  const token = await netlifyIdentity.currentUser().jwt(true);
 
   const dish = textInput.value.trim(); // remove whitespace
 
