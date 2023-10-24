@@ -5,7 +5,7 @@ import {
   resetApiCallCount,
 } from "../../database";
 
-const maxApiCalls = 100;
+const maxApiCalls = 3;
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
