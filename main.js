@@ -4,6 +4,7 @@ const warningMessage = document.querySelector(".warning-message");
 const loader = document.querySelector(".loader");
 const buyBtn = document.querySelector("#buy-btn");
 const loginMessage = document.querySelector(".login-message");
+const header = document.querySelector("header");
 
 let textInput = null;
 
@@ -13,6 +14,17 @@ const updateUserUi = (user) => {
 
   if (user) {
     loginMessage.classList.add("-hidden");
+
+    // add a manage plan button in the account menu
+    if (!document.querySelector(".manage-plan-btn")) {
+      const managePlanBtn = document.createElement("button");
+      managePlanBtn.innerText = "Manage plan";
+      managePlanBtn.classList.add("manage-plan-btn");
+      managePlanBtn.addEventListener("click", () => {
+        manageSubscriptionPlan(user.token.access_token);
+      });
+      header.appendChild(managePlanBtn);
+    }
 
     //render the form
     form.innerHTML = `
@@ -25,6 +37,12 @@ const updateUserUi = (user) => {
     form.addEventListener("submit", onFormSubmit);
   } else {
     loginMessage.classList.remove("-hidden");
+
+    // remove the manage plan button in the account menu
+    const managePlanBtn = document.querySelector(".manage-plan-btn");
+    if (managePlanBtn) {
+      managePlanBtn.remove();
+    }
   }
 };
 
@@ -104,9 +122,7 @@ const displayAnswer = (dish, answer) => {
 };
 
 // BUY BUTTON
-const stripeBuy = async () => {
-  const token = await netlifyIdentity.currentUser().jwt();
-
+const manageSubscriptionPlan = async (token) => {
   try {
     const response = await fetch(
       "/.netlify/functions/manage-subscription-plan",
@@ -139,5 +155,5 @@ netlifyIdentity.on("login", handleUserStateChange);
 netlifyIdentity.on("logout", handleUserStateChange);
 
 buyBtn.addEventListener("click", () => {
-  stripeBuy();
+  manageSubscriptionPlan();
 });
