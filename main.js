@@ -2,7 +2,7 @@ const form = document.querySelector("form");
 const resultContent = document.querySelector(".result-content");
 const warningMessage = document.querySelector(".warning-message");
 const loader = document.querySelector(".loader");
-const buyBtn = document.querySelector("#buyBtn");
+const buyBtn = document.querySelector("#buy-btn");
 const loginMessage = document.querySelector(".login-message");
 
 let textInput = null;
