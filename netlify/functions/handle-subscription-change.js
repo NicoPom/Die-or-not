@@ -1,6 +1,6 @@
 import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-import { getUserByStripeId } from "../../database";
+import { getUserByStripeId, updateUserRole } from "../../database";
 
 export const handler = async ({ body, headers }, context) => {
   try {
@@ -22,6 +22,9 @@ export const handler = async ({ body, headers }, context) => {
 
     // take the first word of the plan name and use it as the role
     const role = subscription.items.data[0].plan.metadata.role;
+
+    // update the user role in your database
+    console.log(await updateUserRole(netlify_id, role));
 
     // send a call to the Netlify Identity admin API to update the user role
     const { identity } = context.clientContext;

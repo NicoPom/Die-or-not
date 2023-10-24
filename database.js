@@ -65,6 +65,21 @@ const resetApiCallCount = async (id) => {
   }
 };
 
+const updateUserRole = async (id, role) => {
+  try {
+    const [result] = await pool.query(
+      "UPDATE users SET role = ? WHERE netlify_id = ?",
+      [role, id]
+    );
+    if (result.affectedRows !== 1) {
+      throw new Error("User not updated");
+    }
+    console.log("updated user role", await getUserByNetlifyId(id));
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 const createUser = async (user) => {
   try {
     const [result] = await pool.query(
@@ -92,4 +107,5 @@ export {
   createUser,
   addApiCallCount,
   resetApiCallCount,
+  updateUserRole,
 };
