@@ -131,7 +131,7 @@ const stripeBuy = async () => {
 // EVENT LISTENERS
 netlifyIdentity.on("init", (user) => {
   isUserLoggedIn(user);
-  netlifyIdentity.refresh(true);
+  // netlifyIdentity.refresh(true);
   console.log(netlifyIdentity.currentUser());
 });
 
