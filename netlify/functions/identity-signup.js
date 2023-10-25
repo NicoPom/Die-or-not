@@ -26,24 +26,15 @@ export const handler = async (event, context) => {
     stripe_id: customer.id,
   };
 
-  console.log(userObj);
-
   // save the user in the database
-  console.log(await createUser(userObj));
+  await createUser(userObj);
 
-  try {
-    return {
-      statusCode: 200,
-      body: JSON.stringify({
-        app_metadata: {
-          roles: ["free"],
-        },
-      }),
-    };
-  } catch (error) {
-    return {
-      statusCode: 500,
-      body: error.message,
-    };
-  }
+  return {
+    statusCode: 200,
+    body: JSON.stringify({
+      app_metadata: {
+        roles: ["free"],
+      },
+    }),
+  };
 };
