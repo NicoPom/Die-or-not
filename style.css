@@ -28,12 +28,12 @@ button {
 
 button {
   cursor: pointer;
+  color: black;
 }
 
 button:hover,
 button:focus-visible {
-  background-color: lightgray;
-  color: black;
+  color: lightgray;
 }
 
 /* COLORS */
@@ -100,6 +100,13 @@ form {
   padding: 2.5rem 0;
 }
 
+/* buttons */
+
+.check-btn {
+  background: var(--hot-gradient);
+  border: none;
+}
+
 /* TYPO */
 
 a {
@@ -112,7 +119,8 @@ a:focus-visible {
   text-decoration: underline;
 }
 
-em {
+em,
+.author {
   font-style: normal;
   background: var(--hot-gradient);
   -webkit-background-clip: text;
@@ -126,6 +134,10 @@ em {
 .warning-message {
   font-size: 1.5rem;
   color: red;
+}
+
+.made-by {
+  color: black;
 }
 
 /* backgrounds */
