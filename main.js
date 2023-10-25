@@ -5,13 +5,10 @@ const loader = document.querySelector(".loader");
 const buyBtn = document.querySelector("#buy-btn");
 const loginMessage = document.querySelector(".login-message");
 const header = document.querySelector("header");
-
-let textInput = null;
+const textInput = document.querySelector(".textInput");
 
 // IS USER LOGGED IN ? show the form or the login message
 const updateUserUi = (user) => {
-  form.innerHTML = "";
-
   if (user) {
     loginMessage.classList.add("-hidden");
 
@@ -26,17 +23,11 @@ const updateUserUi = (user) => {
       header.appendChild(managePlanBtn);
     }
 
-    //render the form
-    form.innerHTML = `
-      <input type="text" class="textInput" name="text" placeholder="Enter a dish name">
-      <button> Check </button>
-    `;
-
-    // get the input
-    textInput = document.querySelector(".textInput");
-    form.addEventListener("submit", onFormSubmit);
+    // display the form
+    form.classList.remove("-hidden");
   } else {
     loginMessage.classList.remove("-hidden");
+    form.classList.add("-hidden");
 
     // remove the manage plan button in the account menu
     const managePlanBtn = document.querySelector(".manage-plan-btn");
@@ -157,3 +148,5 @@ netlifyIdentity.on("logout", handleUserStateChange);
 buyBtn.addEventListener("click", () => {
   manageSubscriptionPlan();
 });
+
+form.addEventListener("submit", onFormSubmit);

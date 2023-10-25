@@ -41,12 +41,12 @@ button:focus-visible {
 :root {
   /* gradient */
   --hot-gradient: linear-gradient(
-    0deg,
+    180deg,
     hsla(4, 84%, 49%, 1) 0%,
     hsla(37, 89%, 52%, 1) 100%
   );
   --ok-gradient: linear-gradient(
-    0deg,
+    180deg,
     rgb(2, 141, 16) 0%,
     rgb(149, 247, 88) 100%
   );
@@ -93,9 +93,10 @@ form {
   align-items: center; */
   gap: 1rem;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
-.resultContent {
+.result-content {
   padding: 2.5rem 0;
 }
 
@@ -118,8 +119,8 @@ em {
   -webkit-text-fill-color: transparent;
 }
 
-.resultContent {
-  font-size: 2rem;
+.result-content {
+  font-size: 3rem;
 }
 
 .warning-message {

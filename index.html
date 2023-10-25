@@ -24,15 +24,21 @@
       <div data-netlify-identity-button></div>
     </div>
 
-    <form>
+    <form class="-hidden">
+      <input type="text" class="textInput" name="text" placeholder="Enter a dish name" />
+      <button>Check</button>
     </form>
+
     <p class="warning-message -hidden"></p>
     <div class="result">
       <div class="loader -hidden"></div>
       <p class="result-content -hidden"></p>
     </div>
-    <button id="buy-btn">Buy</button>
+    <button id="buy-btn" class="-hidden">Buy</button>
   </main>
+  <footer>
+    <p>Made by <a href="https://twitter.com/NicolasPomDev">@pomdev</a></p>
+  </footer>
   <script type="module" src="/main.js"></script>
 </body>
 
