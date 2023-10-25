@@ -27,7 +27,12 @@ export const handler = async (event, context) => {
   };
 
   // save the user in the database
-  await createUser(userObj);
+  try {
+    const newUser = await createUser(userObj);
+    console.log("new user created : ", newUser);
+  } catch (error) {
+    console.log(error);
+  }
 
   return {
     statusCode: 200,

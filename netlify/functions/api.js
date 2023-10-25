@@ -1,5 +1,5 @@
 import OpenAI from "openai";
-import { addApiCallCount, getUserByNetlifyId } from "../../database";
+import { addApiCallCount, getUserByNetlifyId, getUsers } from "../../database";
 
 const maxApiCalls = 3;
 const openai = new OpenAI({
@@ -7,6 +7,10 @@ const openai = new OpenAI({
 });
 
 export const handler = async (event, context) => {
+  // get all users
+  const users = await getUsers();
+  console.log(users);
+
   // authorization check
   const { user } = context.clientContext;
   const userId = user.sub;
