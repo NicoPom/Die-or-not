@@ -3,16 +3,13 @@ import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const handler = async (event, context) => {
-  // TODO: authorization check
-
   const { user } = JSON.parse(event.body);
 
   // // create a new customer in Stripe
   const customer = await stripe.customers.create({
     email: user.email,
+    name: user.user_metadata.full_name,
   });
-
-  // TODO: check if the user already exists in the stripe database to avoid re-creating the customer
 
   // // subscribe the new customer to the free plan
   await stripe.subscriptions.create({

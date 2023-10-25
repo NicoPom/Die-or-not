@@ -45,7 +45,7 @@ const onFormSubmit = async (event) => {
   warningMessage.innerText = "";
   resultContent.innerText = "";
 
-  // get always a fresh token
+  // always get a fresh token
   const token = await netlifyIdentity.currentUser().jwt(true);
 
   const dish = textInput.value.trim(); // remove whitespace
