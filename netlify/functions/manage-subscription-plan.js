@@ -3,9 +3,16 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 import { getUserByNetlifyId } from "../../database";
 
 export const handler = async (event, context) => {
-  // TODO : authorization check
-
   const { user } = context.clientContext;
+
+  if (!user) {
+    return {
+      statusCode: 401,
+      body: JSON.stringify({
+        error: "You must be logged in to manage your subscription",
+      }),
+    };
+  }
 
   const dbUser = await getUserByNetlifyId(user.sub);
 

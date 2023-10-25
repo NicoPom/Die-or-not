@@ -43,6 +43,12 @@ export const handler = async ({ body, headers }, context) => {
       });
     } catch (err) {
       console.log(err);
+      return {
+        statusCode: 500,
+        body: JSON.stringify({
+          error: `Failed to update the user: ${err}`,
+        }),
+      };
     }
 
     return {
