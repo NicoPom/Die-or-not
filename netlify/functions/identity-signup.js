@@ -1,6 +1,6 @@
 import { createUser } from "../../database";
 import Stripe from "stripe";
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY_PROD);
 
 export const handler = async (event, context) => {
   const { user } = JSON.parse(event.body);
