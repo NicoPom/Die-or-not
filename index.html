@@ -14,36 +14,40 @@
 </head>
 
 <body>
+  <div class="container">
+
+    <header>
+      <div data-netlify-identity-menu></div>
+      <a class="manage-plan-btn -hidden">Manage plan</a>
+    </header>
+    <main id="app">
+      <h1 class="title">Check if your food is <em>spicy</em> or not ?</h1>
+      <div class="login-message">
+        <div data-netlify-identity-button></div>
+        <span>to check your food</span>
+
+      </div>
+
+      <form class="-hidden">
+        <input type="text" class="textInput" name="text" placeholder="Enter a dish name" onfocus="this.value=''" />
+        <button class="check-btn">Check</button>
+      </form>
+
+      <p class="warning-message -hidden"></p>
+      <div class="result">
+        <div class="loader -hidden"></div>
+        <p class="result-content -hidden"></p>
+      </div>
+      <button class="upgrade-btn -hidden">Upgrade to Pro Plan</button>
+    </main>
+    <footer>
+      <p class="made-by">Made by <a class="author" target="_blank" href="https://twitter.com/NicolasPomDev">Pom</a>
+      </p>
+    </footer>
+  </div>
+
   <div class="bg green"></div>
   <div class="bg red -invisible"></div>
-  <header>
-    <div data-netlify-identity-menu></div>
-    <a class="manage-plan-btn -hidden">Manage plan</a>
-  </header>
-  <main id="app">
-    <h1 class="title">Check if your food is <em>spicy</em> or not ?</h1>
-    <div class="login-message">
-      <div data-netlify-identity-button></div>
-      <span>to check your food</span>
-
-    </div>
-
-    <form class="-hidden">
-      <input type="text" class="textInput" name="text" placeholder="Enter a dish name" onfocus="this.value=''" />
-      <button class="check-btn">Check</button>
-    </form>
-
-    <p class="warning-message -hidden"></p>
-    <div class="result">
-      <div class="loader -hidden"></div>
-      <p class="result-content -hidden"></p>
-    </div>
-    <button class="upgrade-btn -hidden">Upgrade to Pro Plan</button>
-  </main>
-  <footer>
-    <p class="made-by">Made by <a class="author" target="_blank" href="https://twitter.com/NicolasPomDev">Pom</a>
-    </p>
-  </footer>
   <script type="module" src="/main.js"></script>
 </body>
 

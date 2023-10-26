@@ -31,6 +31,7 @@ const onFormSubmit = async (event) => {
 
   // reset the UI
   warningMessage.innerText = "";
+  warningMessage.classList.add("-hidden");
   resultContent.innerText = "";
 
   // always get a fresh token
