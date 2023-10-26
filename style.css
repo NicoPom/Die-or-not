@@ -123,8 +123,11 @@ em,
   color: red;
 }
 
-.made-by {
+.credits {
   color: black;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 /* backgrounds */
