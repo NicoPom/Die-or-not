@@ -28,12 +28,11 @@ button {
 
 button {
   cursor: pointer;
-  color: black;
 }
 
 button:hover,
 button:focus-visible {
-  color: lightgray;
+  text-decoration: underline;
 }
 
 /* COLORS */
@@ -115,12 +114,13 @@ a {
 }
 
 a:hover,
-a:focus-visible {
+a:focus-visible,
+.manage-plan-btn:hover,
+.manage-plan-btn:focus-visible {
   text-decoration: underline;
 }
 
-em,
-.author {
+em {
   font-style: normal;
   background: var(--hot-gradient);
   -webkit-background-clip: text;

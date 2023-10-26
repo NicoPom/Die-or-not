@@ -6,34 +6,18 @@ const buyBtn = document.querySelector(".buy-btn");
 const loginMessage = document.querySelector(".login-message");
 const header = document.querySelector("header");
 const textInput = document.querySelector(".textInput");
+const managePlanBtn = document.querySelector(".manage-plan-btn");
 
 // IS USER LOGGED IN ? show the form or the login message
 const updateUserUi = (user) => {
   if (user) {
     loginMessage.classList.add("-hidden");
-
-    // add a manage plan button in the account menu
-    if (!document.querySelector(".manage-plan-btn")) {
-      const managePlanBtn = document.createElement("button");
-      managePlanBtn.innerText = "Manage plan";
-      managePlanBtn.classList.add("manage-plan-btn");
-      managePlanBtn.addEventListener("click", () => {
-        manageSubscriptionPlan(user.token.access_token);
-      });
-      header.appendChild(managePlanBtn);
-    }
-
-    // display the form
+    managePlanBtn.classList.remove("-hidden");
     form.classList.remove("-hidden");
   } else {
     loginMessage.classList.remove("-hidden");
     form.classList.add("-hidden");
-
-    // remove the manage plan button in the account menu
-    const managePlanBtn = document.querySelector(".manage-plan-btn");
-    if (managePlanBtn) {
-      managePlanBtn.remove();
-    }
+    managePlanBtn.classList.add("-hidden");
   }
 };
 
