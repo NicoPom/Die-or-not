@@ -18,7 +18,7 @@ input,
 button {
   border: 1px solid grey;
   border-radius: 1.5rem;
-  padding: 1em 1.5em;
+  padding: 0.75em 1.25em;
   outline: none;
   background: none;
   font-family: inherit;
@@ -63,7 +63,7 @@ button:focus-visible {
 
 body {
   font-family: "Roboto", sans-serif;
-  font-size: 1.6rem;
+  font-size: 2.1rem;
   line-height: 1.5;
   color: whitesmoke;
   text-align: center;
@@ -74,12 +74,10 @@ body {
 }
 
 #app {
-  /* width: 100%;
-  height: 100vh; */
   display: grid;
   background-color: rgba(43, 42, 42, 0.9);
   gap: 1rem;
-  padding: 3rem 4.5rem;
+  padding: 1em 1.5em;
   border-radius: 1.5rem;
 }
 
@@ -89,8 +87,6 @@ body {
 
 form {
   display: flex;
-  /* flex-direction: column;
-  align-items: center; */
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
@@ -195,10 +191,20 @@ em,
 
 /* layout */
 
+input {
+  width: 100%;
+  max-width: 40rem;
+}
+
 .netlify-identity-menu {
-  background-color: blue;
   display: flex;
-  justify-content: space-between;
+  gap: 3rem;
+  justify-content: flex-end;
   flex-flow: wrap;
   list-style-type: none;
+}
+
+.manage-plan-btn {
+  display: block;
+  margin-top: 3rem;
 }
