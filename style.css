@@ -26,7 +26,8 @@ button {
   color: inherit;
 }
 
-button {
+button,
+.manage-plan-btn {
   cursor: pointer;
 }
 
@@ -120,7 +121,8 @@ a:focus-visible,
   text-decoration: underline;
 }
 
-em {
+em,
+.netlify-identity-button {
   font-style: normal;
   background: var(--hot-gradient);
   -webkit-background-clip: text;
@@ -194,7 +196,9 @@ em {
 /* layout */
 
 .netlify-identity-menu {
+  background-color: blue;
   display: flex;
-  gap: 10rem;
+  justify-content: space-between;
+  flex-flow: wrap;
   list-style-type: none;
 }

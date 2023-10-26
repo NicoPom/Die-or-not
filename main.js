@@ -2,7 +2,7 @@ const form = document.querySelector("form");
 const resultContent = document.querySelector(".result-content");
 const warningMessage = document.querySelector(".warning-message");
 const loader = document.querySelector(".loader");
-const buyBtn = document.querySelector(".buy-btn");
+const upgradeBtn = document.querySelector(".upgrade-btn");
 const loginMessage = document.querySelector(".login-message");
 const header = document.querySelector("header");
 const textInput = document.querySelector(".textInput");
@@ -14,6 +14,10 @@ const updateUserUi = (user) => {
     loginMessage.classList.add("-hidden");
     managePlanBtn.classList.remove("-hidden");
     form.classList.remove("-hidden");
+
+    managePlanBtn.addEventListener("click", () => {
+      manageSubscriptionPlan(user.token.access_token);
+    });
   } else {
     loginMessage.classList.remove("-hidden");
     form.classList.add("-hidden");
@@ -59,7 +63,10 @@ const callApi = async (dish, token) => {
 
     if (!response.ok) {
       if (response.status === 401) {
-        buyBtn.classList.remove("-hidden"); // show the buy button
+        upgradeBtn.classList.remove("-hidden"); // show the buy button
+        upgradeBtn.addEventListener("click", () => {
+          manageSubscriptionPlan(token);
+        });
         throw new Error(await response.text());
       } else {
         throw new Error("Oops something went wrong");
@@ -129,9 +136,5 @@ netlifyIdentity.on("init", handleUserStateChange);
 netlifyIdentity.on("login", handleUserStateChange);
 
 netlifyIdentity.on("logout", handleUserStateChange);
-
-buyBtn.addEventListener("click", () => {
-  manageSubscriptionPlan();
-});
 
 form.addEventListener("submit", onFormSubmit);
