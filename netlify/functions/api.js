@@ -18,8 +18,12 @@ export const handler = async (event, context) => {
   const [databaseUser] = await getUserByNetlifyId(userId);
   const { api_calls } = databaseUser;
 
-  // if user is not logged in or exceed the api call limit as a free user
-  if (!roles || (roles.includes("free") && api_calls >= maxApiCalls)) {
+  // if user is not logged in or exceed the api call limit as a free user, or hasn't a role (maybe cancelled subscription)
+  if (
+    !roles ||
+    roles.length === 0 ||
+    (roles.includes("free") && api_calls >= maxApiCalls)
+  ) {
     return {
       statusCode: 401,
       body: "You've exceeded the number of free requests. Please upgrade to the pro plan.",
