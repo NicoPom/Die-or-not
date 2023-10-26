@@ -24,7 +24,7 @@ export const handler = async ({ body, headers }, context) => {
     const role = subscription.items.data[0].plan.metadata.role;
 
     // update the user role in your database
-    console.log(await updateUserRole(netlify_id, role));
+    await updateUserRole(netlify_id, role);
 
     // send a call to the Netlify Identity admin API to update the user role
     const { identity } = context.clientContext;

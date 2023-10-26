@@ -33,7 +33,6 @@ const addApiCallCount = async (id) => {
     [id]
   );
   const [updatedUser] = await getUserByNetlifyId(id);
-  console.log("added 1 api count : ", updatedUser);
   return updatedUser;
 };
 
@@ -53,7 +52,6 @@ const createUser = async (user) => {
     [user.name, user.email, user.role, user.netlify_id, user.stripe_id]
   );
   const [newUser] = await getUserById(result.insertId);
-  console.log(newUser);
   return newUser;
 };
 

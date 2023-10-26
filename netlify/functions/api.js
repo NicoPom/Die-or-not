@@ -7,10 +7,6 @@ const openai = new OpenAI({
 });
 
 export const handler = async (event, context) => {
-  // get all users
-  const users = await getUsers();
-  console.log(users);
-
   // authorization check
   const { user } = context.clientContext;
   const userId = user.sub;

@@ -28,8 +28,7 @@ export const handler = async (event, context) => {
 
   // save the user in the database
   try {
-    const newUser = await createUser(userObj);
-    console.log("new user created : ", newUser);
+    await createUser(userObj);
   } catch (error) {
     console.log(error);
   }

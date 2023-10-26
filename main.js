@@ -93,7 +93,7 @@ const displayErrorMessage = (message) => {
 // DISPLAY RESULT
 const displayAnswer = (dish, answer) => {
   resultContent.innerText =
-    dish + (answer ? ` can be Spicy 🥵` : " is not Spicy 😊");
+    dish + (answer ? ` is spicy 🥵` : " is not spicy 😊");
 
   const bgRed = document.querySelector(".bg.red");
 
