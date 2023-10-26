@@ -2,11 +2,6 @@ import mysql from "mysql2";
 
 const pool = mysql.createPool(process.env.DB_URL).promise();
 
-const getUsers = async () => {
-  const [result] = await pool.query("SELECT * FROM users");
-  return result;
-};
-
 const getUserById = async (id) => {
   const [result] = await pool.query("SELECT * FROM users WHERE id = ?", [id]);
   return result;
@@ -56,7 +51,6 @@ const createUser = async (user) => {
 };
 
 export {
-  getUsers,
   getUserByNetlifyId,
   getUserByStripeId,
   createUser,

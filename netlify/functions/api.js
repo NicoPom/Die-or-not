@@ -1,5 +1,5 @@
 import OpenAI from "openai";
-import { addApiCallCount, getUserByNetlifyId, getUsers } from "../../database";
+import { addApiCallCount, getUserByNetlifyId } from "../../database";
 
 const maxApiCalls = 3;
 const openai = new OpenAI({
