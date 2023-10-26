@@ -2,7 +2,7 @@ const form = document.querySelector("form");
 const resultContent = document.querySelector(".result-content");
 const warningMessage = document.querySelector(".warning-message");
 const loader = document.querySelector(".loader");
-const buyBtn = document.querySelector("#buy-btn");
+const buyBtn = document.querySelector(".buy-btn");
 const loginMessage = document.querySelector(".login-message");
 const header = document.querySelector("header");
 const textInput = document.querySelector(".textInput");
@@ -75,6 +75,7 @@ const callApi = async (dish, token) => {
 
     if (!response.ok) {
       if (response.status === 401) {
+        buyBtn.classList.remove("-hidden"); // show the buy button
         throw new Error(await response.text());
       } else {
         throw new Error("Oops something went wrong");
