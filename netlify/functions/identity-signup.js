@@ -14,7 +14,7 @@ export const handler = async (event, context) => {
   // // subscribe the new customer to the free plan
   await stripe.subscriptions.create({
     customer: customer.id,
-    items: [{ price: process.env.STRIPE_DEFAULT_PRICE_PLAN }],
+    items: [{ price: process.env.STRIPE_FREE_PRICE_PLAN }],
   });
 
   // // create a new user object to be saved in the database
