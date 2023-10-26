@@ -40,16 +40,8 @@ button:focus-visible {
 
 :root {
   /* gradient */
-  --hot-gradient: linear-gradient(
-    180deg,
-    hsla(4, 84%, 49%, 1) 0%,
-    hsla(37, 89%, 52%, 1) 100%
-  );
-  --ok-gradient: linear-gradient(
-    180deg,
-    rgb(2, 141, 16) 0%,
-    rgb(149, 247, 88) 100%
-  );
+  --hot-gradient: linear-gradient(180deg, #e62214 0%, #f29e18 100%);
+  --ok-gradient: linear-gradient(180deg, #028d10 0%, #95f758 100%);
 
   --green: hsla(126, 55%, 37%, 1);
   --green-light: hsla(85, 73%, 65%, 1);
@@ -132,7 +124,7 @@ em,
 }
 
 .warning-message {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   color: red;
 }
 

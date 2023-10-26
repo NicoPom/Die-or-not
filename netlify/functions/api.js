@@ -26,7 +26,7 @@ export const handler = async (event, context) => {
   ) {
     return {
       statusCode: 401,
-      body: "You've exceeded the number of free requests. Please upgrade to the pro plan.",
+      body: "You've used up your free requests. Upgrade to Pro for €2/month for unlimited requests.",
     };
   }
 
