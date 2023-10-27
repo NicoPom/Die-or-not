@@ -129,14 +129,18 @@ em,
   color: red;
 }
 
+.feedback,
 .credits {
   color: black;
+  background-color: white;
+  gap: 1rem;
+  padding: 1rem 1.5rem 0.8rem;
+  border-radius: 1.5rem;
+}
+
+.credits {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  background-color: white;
-  padding: 1rem 1.5rem;
-  border-radius: 1.5rem;
 }
 
 /* backgrounds */
@@ -217,4 +221,11 @@ input {
   right: 0;
   display: block;
   width: fit-content;
+}
+
+footer {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  gap: 2rem;
 }
