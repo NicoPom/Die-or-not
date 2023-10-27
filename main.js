@@ -97,11 +97,15 @@ const displayAnswer = (dish, answer) => {
     dish + (answer ? ` is spicy 🥵` : " is not spicy 😊");
 
   const bgRed = document.querySelector(".bg.red");
+  const bgGreen = document.querySelector(".bg.green");
 
   if (answer) {
     bgRed.classList.remove("-invisible");
+    bgGreen.classList.add("-invisible");
+    bg;
   } else {
     bgRed.classList.add("-invisible");
+    bgGreen.classList.remove("-invisible");
   }
 };
 
