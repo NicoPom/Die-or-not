@@ -163,16 +163,6 @@ em,
   background: var(--hot-gradient);
 }
 
-/* UI */
-
-.-invisible {
-  opacity: 0;
-}
-
-.-hidden {
-  display: none;
-}
-
 /* loader */
 
 .loader {
@@ -233,4 +223,14 @@ footer {
   right: 0;
   display: block;
   width: fit-content;
+}
+
+/* UI */
+
+.-invisible {
+  opacity: 0;
+}
+
+.-hidden {
+  display: none;
 }

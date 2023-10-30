@@ -22,6 +22,8 @@ const updateUserUi = (user) => {
     loginMessage.classList.remove("-hidden");
     form.classList.add("-hidden");
     managePlanBtn.classList.add("-hidden");
+    warningMessage.innerText = "";
+    resultContent.innerText = "";
   }
 };
 
