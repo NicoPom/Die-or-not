@@ -22,10 +22,6 @@ export const handler = async ({ body, headers }, context) => {
 
     // const role = subscription.items.data[0].plan.metadata.role;
     const role = subscription.plan.metadata.role;
-    console.log(
-      "🚀 ~ file: handle-subscription-change.js:33 ~ handler ~ role:",
-      role
-    );
 
     // update the user role in your database
     await updateUserRole(netlify_id, role);
