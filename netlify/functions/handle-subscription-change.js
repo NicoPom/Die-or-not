@@ -15,6 +15,10 @@ export const handler = async ({ body, headers }, context) => {
     if (stripeEvent.type !== "customer.subscription.updated") return;
 
     const subscription = stripeEvent.data.object;
+    console.log(
+      "🚀 ~ file: handle-subscription-change.js:18 ~ handler ~ subscription:",
+      subscription
+    );
 
     const dbUser = await getUserByStripeId(subscription.customer);
     console.log(
