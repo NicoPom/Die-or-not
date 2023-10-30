@@ -15,25 +15,13 @@ export const handler = async ({ body, headers }, context) => {
     if (stripeEvent.type !== "customer.subscription.updated") return;
 
     const subscription = stripeEvent.data.object;
-    console.log(
-      "🚀 ~ file: handle-subscription-change.js:18 ~ handler ~ subscription:",
-      subscription
-    );
 
     const dbUser = await getUserByStripeId(subscription.customer);
-    console.log(
-      "🚀 ~ file: handle-subscription-change.js:20 ~ handler ~ dbUser:",
-      dbUser
-    );
 
     const { netlify_id } = dbUser[0];
-    console.log(
-      "🚀 ~ file: handle-subscription-change.js:23 ~ handler ~ netlify_id:",
-      netlify_id
-    );
 
-    // take the first word of the plan name and use it as the role
-    const role = subscription.items.data[0].plan.metadata.role;
+    // const role = subscription.items.data[0].plan.metadata.role;
+    const role = subscription.plan.metadata.role;
     console.log(
       "🚀 ~ file: handle-subscription-change.js:33 ~ handler ~ role:",
       role
