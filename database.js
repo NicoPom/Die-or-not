@@ -32,7 +32,7 @@ const updateUserRole = async (id, role) => {
     [role, id]
   );
   const [updatedUser] = await getUserByNetlifyId(id);
-  console.log(updatedUser);
+  console.log("update user role" + updatedUser);
   return updatedUser;
 };
 
