@@ -121,7 +121,7 @@ em,
 .result-content {
   font-size: 3rem;
   padding: 1.75rem 0;
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
 }
 
 .warning-message {
