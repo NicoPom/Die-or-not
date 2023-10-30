@@ -134,7 +134,7 @@ em,
   color: black;
   background-color: white;
   gap: 1rem;
-  padding: 1rem 1.5rem 0.8rem;
+  padding: 0.75em 1em 0.6em;
   border-radius: 1.5rem;
 }
 
@@ -196,6 +196,11 @@ em,
 
 /* layout */
 
+header,
+footer {
+  font-size: 1.8rem;
+}
+
 header {
   width: 100%;
   position: relative;
@@ -205,6 +210,13 @@ header {
 input {
   width: 100%;
   max-width: 24rem;
+}
+
+footer {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  gap: 2rem;
 }
 
 .netlify-identity-menu {
@@ -221,11 +233,4 @@ input {
   right: 0;
   display: block;
   width: fit-content;
-}
-
-footer {
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  gap: 2rem;
 }
