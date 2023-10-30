@@ -143,6 +143,10 @@ em,
   align-items: center;
 }
 
+.feedback {
+  display: none;
+}
+
 /* backgrounds */
 
 .bg {
