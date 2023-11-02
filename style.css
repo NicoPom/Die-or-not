@@ -14,34 +14,12 @@ img {
   max-width: 100%;
 }
 
-input,
-button {
-  border: 1px solid grey;
-  border-radius: 1.5rem;
-  padding: 0.75em 1.25em;
-  outline: none;
-  background: none;
-  font-family: inherit;
-  font-size: inherit;
-  color: inherit;
-}
-
-button,
-.manage-plan-btn {
-  cursor: pointer;
-}
-
-button:hover,
-button:focus-visible {
-  text-decoration: underline;
-}
-
 /* COLORS */
 
 :root {
   /* gradient */
-  --hot-gradient: linear-gradient(180deg, #e62214 0%, #f29e18 100%);
-  --ok-gradient: linear-gradient(180deg, #028d10 0%, #95f758 100%);
+  --hot-gradient: linear-gradient(180deg, #e62214 0%, #cf7e14 100%);
+  --ok-gradient: linear-gradient(180deg, #1d8e28 0%, #94b90e 100%);
 
   --green: hsla(126, 55%, 37%, 1);
   --green-light: hsla(85, 73%, 65%, 1);
@@ -65,7 +43,6 @@ body {
 }
 
 .container {
-  text-align: center;
   display: grid;
   gap: 3rem;
   place-items: center;
@@ -92,10 +69,34 @@ form {
 }
 /* buttons */
 
+input,
+button {
+  border: 1px solid grey;
+  border-radius: 1.5rem;
+  padding: 0.75em 1.25em;
+  outline: none;
+  background: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+button,
+.manage-plan-btn {
+  cursor: pointer;
+}
+
+a:hover,
+a:focus-visible,
+button:hover,
+button:focus-visible {
+  outline: 2px solid lightgray;
+}
+
 .check-btn,
 .upgrade-btn,
 .tip-btn {
-  background: var(--hot-gradient);
+  background: var(--red);
   border: none;
 }
 
@@ -107,13 +108,6 @@ form {
 a {
   text-decoration: none;
   color: inherit;
-}
-
-a:hover,
-a:focus-visible,
-.manage-plan-btn:hover,
-.manage-plan-btn:focus-visible {
-  text-decoration: underline;
 }
 
 em,
@@ -135,13 +129,19 @@ em,
   color: red;
 }
 
-.feedback,
-.credits {
+.light-btn {
+  display: flex;
   color: black;
   background-color: white;
   gap: 1rem;
   padding: 0.75em 1em 0.6em;
   border-radius: 1.5rem;
+}
+
+.light-btn:hover,
+.light-btn:focus-visible {
+  outline: 2px solid black;
+  text-decoration: underline;
 }
 
 .credits {
@@ -199,12 +199,13 @@ em,
 header,
 footer {
   font-size: 1.8rem;
+  display: flex;
 }
 
 header {
-  width: 100%;
-  position: relative;
-  line-height: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rem;
 }
 
 input {
@@ -213,13 +214,20 @@ input {
 }
 
 footer {
+  width: 100%;
   display: flex;
-  flex-flow: column;
-  align-items: center;
+  justify-content: space-between;
   gap: 2rem;
 }
 
-.netlify-identity-menu {
+.tip-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* .netlify-identity-menu {
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
@@ -233,7 +241,7 @@ footer {
   right: 0;
   display: block;
   width: fit-content;
-}
+} */
 
 /* UI */
 
