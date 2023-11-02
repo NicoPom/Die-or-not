@@ -19,20 +19,22 @@
 
 <body>
   <div class="container">
-
+    <!--
     <header>
       <div data-netlify-identity-menu></div>
       <a class="manage-plan-btn -hidden">Manage plan</a>
     </header>
+    -->
     <main id="app">
       <h1 class="title">Check if your food is <em>spicy</em> or not ?</h1>
+      <!-- 
       <div class="login-message">
         <div data-netlify-identity-button></div>
         <span>to try it out</span>
-
       </div>
+      -->
 
-      <form class="-hidden">
+      <form>
         Is <input type="text" class="textInput" name="text" placeholder="Enter a dish name..."
                onfocus="this.value=''" />
         <button class="check-btn">Spicy ?</button>
@@ -41,20 +43,18 @@
       <p class="warning-message -hidden"></p>
       <div class="loader -hidden"></div>
       <p class="result-content -hidden"></p>
+      <!-- 
       <button class="upgrade-btn -hidden">Upgrade to Pro Plan</button>
+      -->
     </main>
 
 
     <footer>
       <div class="feedback"><a
            href="https://twitter.com/intent/tweet?text=@pomdevv feedback for dieornot.com">feedback</a>
-
       </div>
-      <a href="https://www.producthunt.com/posts/die-or-not?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-die&#0045;or&#0045;not"
-         target="_blank"><img
-             src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=422513&theme=dark"
-             alt="Die&#0032;or&#0032;Not - Check&#0032;if&#0032;your&#0032;food&#0032;is&#0032;spicy&#0032;&#0063;&#0032;🔥 | Product Hunt"
-             style="width: 250px; height: 54px;" width="250" height="54" /></a>
+      <p>If you enjoy the service, consider leaving a tip to help me cover the costs of running it :)</p>
+      <a class="tip-btn" href="https://buy.stripe.com/8wM17A1sP9K2fmwdQR" target="_blank">Tip</a>
       <div class="credits">
         <a href="/">
           <img src="public/assets/dieornot_logo_32.png" alt="die or not logo">

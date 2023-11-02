@@ -93,9 +93,15 @@ form {
 /* buttons */
 
 .check-btn,
-.upgrade-btn {
+.upgrade-btn,
+.tip-btn {
   background: var(--hot-gradient);
   border: none;
+}
+
+.tip-btn {
+  padding: 0.75em 1.25em;
+  border-radius: 1.5rem;
 }
 
 a {
