@@ -18,8 +18,8 @@ img {
 
 :root {
   /* gradient */
-  --hot-gradient: linear-gradient(180deg, #e62214 0%, #cf7e14 100%);
-  --ok-gradient: linear-gradient(180deg, #1d8e28 0%, #94b90e 100%);
+  --hot-gradient: linear-gradient(180deg, #d00000 0%, #ffba08 100%);
+  --ok-gradient: linear-gradient(180deg, rgb(13, 147, 33) 0%, #efef20bb 100%);
 
   --green: hsla(126, 55%, 37%, 1);
   --green-light: hsla(85, 73%, 65%, 1);
@@ -28,6 +28,7 @@ img {
   --white: whitesmoke;
   --black: black;
   --dark: rgba(43, 42, 42, 0.9);
+  --primary-action: #021715;
 }
 
 /* CSS GLOBAL */
@@ -72,7 +73,7 @@ form {
 
 input,
 button {
-  border: 1px solid grey;
+  border: 1px solid lightgray;
   border-radius: 1.5rem;
   padding: 0.75em 1.25em;
   outline: none;
@@ -101,7 +102,7 @@ button:focus-visible {
 .check-btn,
 .upgrade-btn,
 .tip-btn {
-  background: var(--red);
+  background: var(--primary-action);
   border: none;
 }
 
