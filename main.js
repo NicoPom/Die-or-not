@@ -104,7 +104,6 @@ const displayAnswer = (dish, answer) => {
   if (answer) {
     bgRed.classList.remove("-invisible");
     bgGreen.classList.add("-invisible");
-    bg;
   } else {
     bgRed.classList.add("-invisible");
     bgGreen.classList.remove("-invisible");
