@@ -35,7 +35,7 @@ img {
 body {
   font-family: "Roboto", sans-serif;
   font-size: 2.1rem;
-  line-height: 1.3;
+  line-height: 1.5;
   color: whitesmoke;
   width: 100%;
   position: relative;
@@ -47,7 +47,7 @@ body {
   gap: 3rem;
   place-items: center;
   min-height: 100svh;
-  max-width: 600px;
+  max-width: 75ch;
   margin: 0 auto;
   padding: 1.5rem;
 }
@@ -103,6 +103,8 @@ button:focus-visible {
 .tip-btn {
   padding: 0.75em 1.25em;
   border-radius: 1.5rem;
+  width: 25%;
+  text-align: center;
 }
 
 a {
@@ -142,11 +144,6 @@ em,
 .light-btn:focus-visible {
   outline: 2px solid black;
   text-decoration: underline;
-}
-
-.credits {
-  display: flex;
-  align-items: center;
 }
 
 /* .feedback {
@@ -197,15 +194,15 @@ em,
 /* layout */
 
 header,
-footer {
+footer,
+.tip-section {
   font-size: 1.8rem;
   display: flex;
 }
 
 header {
+  gap: 3rem;
   flex-direction: column;
-  align-items: center;
-  gap: 4rem;
 }
 
 input {
@@ -222,9 +219,8 @@ footer {
 
 .tip-section {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 2rem;
 }
 
 /* .netlify-identity-menu {
