@@ -48,7 +48,7 @@ body {
   gap: 3rem;
   place-items: center;
   min-height: 100svh;
-  max-width: 75ch;
+  max-width: 80ch;
   margin: 0 auto;
   padding: 1.5rem;
 }
