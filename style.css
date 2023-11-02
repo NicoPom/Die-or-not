@@ -18,8 +18,9 @@ img {
 
 :root {
   /* gradient */
-  --hot-gradient: linear-gradient(180deg, #d00000 0%, #ffba08 100%);
-  --ok-gradient: linear-gradient(180deg, rgb(13, 147, 33) 0%, #efef20bb 100%);
+  --hot-gradient: linear-gradient(180deg, #a60a0a 0%, #da9e05 100%);
+  --ok-gradient: linear-gradient(180deg, rgb(18, 126, 35) 0%, #dcdc1eda 100%);
+  --dark-gradient: linear-gradient(180deg, #0a0908 0%, #003554 100%);
 
   --green: hsla(126, 55%, 37%, 1);
   --green-light: hsla(85, 73%, 65%, 1);
@@ -27,8 +28,8 @@ img {
   --red-light: hsla(37, 89%, 52%, 1);
   --white: whitesmoke;
   --black: black;
-  --dark: rgba(43, 42, 42, 0.9);
-  --primary-action: rgb(28, 78, 179);
+  --dark: #171411;
+  --primary-action: rgb(37, 86, 184);
 }
 
 /* CSS GLOBAL */
@@ -37,10 +38,10 @@ body {
   font-family: "Roboto", sans-serif;
   font-size: 2.1rem;
   line-height: 1.5;
-  color: whitesmoke;
+  color: var(--white);
   width: 100%;
   position: relative;
-  background-color: var(--dark);
+  background: var(--dark-gradient);
 }
 
 .container {
