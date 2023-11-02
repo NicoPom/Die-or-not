@@ -56,8 +56,9 @@ body {
   display: grid;
   background-color: var(--dark);
   gap: 3rem;
-  padding: 1em 1.5em;
+  padding: 1.5em 2em;
   border-radius: 1.5rem;
+  text-align: center;
 }
 
 form {
@@ -93,6 +94,10 @@ button:focus-visible {
   outline: 2px solid lightgray;
 }
 
+.logo {
+  width: 5.5rem;
+}
+
 .check-btn,
 .upgrade-btn,
 .tip-btn {
@@ -122,7 +127,7 @@ em,
 
 .result-content {
   font-size: 3rem;
-  padding: 1.75rem 0;
+  /* padding: 1.75rem 0; */
   /* text-transform: capitalize; */
 }
 
@@ -179,7 +184,7 @@ em,
   width: 40px;
   height: 40px;
   animation: spin 1s ease-in-out infinite;
-  margin: 20px auto;
+  margin: 0 auto;
 }
 
 @keyframes spin {
