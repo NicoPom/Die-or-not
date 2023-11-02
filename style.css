@@ -28,7 +28,7 @@ img {
   --white: whitesmoke;
   --black: black;
   --dark: rgba(43, 42, 42, 0.9);
-  --primary-action: #021715;
+  --primary-action: rgb(12, 25, 51);
 }
 
 /* CSS GLOBAL */
