@@ -101,7 +101,7 @@ button:focus-visible {
   outline: 2px solid lightgray;
 }
 
-.logo {
+.logo img {
   width: 5.5rem;
 }
 
@@ -209,13 +209,13 @@ footer,
 .tip-section {
   font-size: 1.8rem;
   display: flex;
-  gap: 2rem;
+  gap: 3rem;
   width: 100%;
 }
 
 header {
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
 }
 
 input {
@@ -228,10 +228,14 @@ footer {
 }
 
 .tip-section {
-  flex-direction: column;
-  align-items: flex-start;
-  max-width: 75ch;
-  justify-self: start;
+  flex-flow: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.tip-section p {
+  max-width: 80%;
 }
 
 /* .netlify-identity-menu {
