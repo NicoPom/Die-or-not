@@ -19,7 +19,11 @@ img {
 :root {
   /* gradient */
   --hot-gradient: linear-gradient(180deg, #a60a0a 0%, #da9e05 100%);
-  --ok-gradient: linear-gradient(180deg, rgb(18, 126, 35) 0%, #dcdc1eda 100%);
+  --ok-gradient: linear-gradient(
+    180deg,
+    rgb(18, 126, 35) 0%,
+    rgba(182, 220, 30, 0.855) 100%
+  );
   --dark-gradient: linear-gradient(180deg, #0a0908 0%, #003554 100%);
 
   --green: hsla(126, 55%, 37%, 1);
