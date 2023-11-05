@@ -105,6 +105,11 @@ button:focus-visible {
   width: 5.5rem;
 }
 
+.logo:hover,
+.logo:focus-visible {
+  outline: none;
+}
+
 .check-btn,
 .upgrade-btn,
 .tip-btn {
