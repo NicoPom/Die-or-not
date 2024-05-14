@@ -12,7 +12,7 @@
     "vite": "^4.5.3"
   },
   "dependencies": {
-    "mysql2": "^3.6.2",
+    "mysql2": "^3.9.7",
     "openai": "^4.11.1",
     "stripe": "^14.1.0"
   }
