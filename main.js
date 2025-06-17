@@ -64,6 +64,8 @@ const callApi = async (dish) => {
       },
     });
 
+    const data = await response.json();
+
     if (!response.ok) {
       // if (response.status === 401) {
       //   upgradeBtn.classList.remove("-hidden"); // show the buy button
@@ -72,15 +74,12 @@ const callApi = async (dish) => {
       //   });
       //   throw new Error(await response.text());
       // } else {
-      throw new Error("Oops something went wrong");
-      // }
+      throw new Error(data.error || "Oops, something went wrong."); 
     }
-
-    const answer = await response.json();
 
     loader.classList.add("-hidden");
     resultContent.classList.remove("-hidden");
-    return answer;
+    return data;
   } catch (error) {
     displayErrorMessage(error.message);
   }

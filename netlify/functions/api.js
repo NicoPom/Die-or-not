@@ -26,38 +26,47 @@ export const handler = async (event, context) => {
   //   };
   // }
 
-  // your server-side functionality
+  // server-side functionality
   const { text } = event.queryStringParameters;
 
-  return {
-    statusCode: 200,
-    body: JSON.stringify(await spicyOrNot(text)),
-  };
+  try {
+    const result = await spicyOrNot(text);
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify(result),
+    };
+  } catch (error) {
+    // Log server-side
+    console.error("Error in handler:", error);
+
+    // Return the error to the client
+    return {
+      statusCode: 500,
+      body: JSON.stringify({error:"Internal Server Error"})
+    };
+  }
 };
 
 const spicyOrNot = async (text) => {
-  try {
-    const response = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: [
-        {
-          role: "user",
-          content: `Is ${text} spicy ? Answer by 'yes' or 'no' with no punctuation`,
-        },
-      ],
-      temperature: 0.1,
-      max_tokens: 1,
-      top_p: 1,
-      frequency_penalty: 0,
-      presence_penalty: 0,
-    });
-    const answer = response.choices[0].message.content;
+  const response = await openai.chat.completions.create({
+    model: "gpt-3.5-turbo",
+    messages: [
+      {
+        role: "user",
+        content: `Is ${text} spicy ? Answer by 'yes' or 'no' with no punctuation`,
+      },
+    ],
+    temperature: 0.1,
+    max_tokens: 1,
+    top_p: 1,
+    frequency_penalty: 0,
+    presence_penalty: 0,
+  });
+  const answer = response.choices[0].message.content.trim().toLowerCase();
 
-    // increment the api call count
-    // await addApiCallCount(userId);
+  // increment the api call count
+  // await addApiCallCount(userId);
 
-    return answer === "yes" || answer === "Yes"; // return true or false
-  } catch (error) {
-    console.log(error);
-  }
+  return answer === "yes" // return true or false
 };
